@@ -10,7 +10,7 @@
 		4D21E8410C8B76AE1A697F06 /* Pods_toDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9549DBE0E2F5859DE491CAD7 /* Pods_toDoList.framework */; };
 		CE09F0DC277F405600306207 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DB277F405600306207 /* AppDelegate.swift */; };
 		CE09F0DE277F405600306207 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DD277F405600306207 /* SceneDelegate.swift */; };
-		CE09F0E0277F405600306207 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DF277F405600306207 /* ViewController.swift */; };
+		CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DF277F405600306207 /* CreateTaskController.swift */; };
 		CE09F0E5277F405700306207 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E4277F405700306207 /* Assets.xcassets */; };
 		CE09F0E8277F405700306207 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E6277F405700306207 /* LaunchScreen.storyboard */; };
 		CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */; };
@@ -29,7 +29,7 @@
 		CE09F0D8277F405600306207 /* toDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = toDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE09F0DB277F405600306207 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE09F0DD277F405600306207 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE09F0DF277F405600306207 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE09F0DF277F405600306207 /* CreateTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskController.swift; sourceTree = "<group>"; };
 		CE09F0E4277F405700306207 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE09F0E7277F405700306207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE09F0E9277F405700306207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,15 +86,23 @@
 				CE5BD9DE2780814900E8AA0F /* GeneralElements */,
 				CEC0A607278064B2003503C1 /* Services */,
 				CEC0A60427803BF4003503C1 /* Models */,
+				CE143B522780AF860009B939 /* Modules */,
 				CEC0A5FD2780289A003503C1 /* Extensions */,
 				CE09F0DB277F405600306207 /* AppDelegate.swift */,
 				CE09F0DD277F405600306207 /* SceneDelegate.swift */,
-				CE09F0DF277F405600306207 /* ViewController.swift */,
 				CE09F0E4277F405700306207 /* Assets.xcassets */,
 				CE09F0E6277F405700306207 /* LaunchScreen.storyboard */,
 				CE09F0E9277F405700306207 /* Info.plist */,
 			);
 			path = toDoList;
+			sourceTree = "<group>";
+		};
+		CE143B522780AF860009B939 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				CE8412E72780AFF300BA8B0A /* CreateTaskScreen */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		CE5BD9DE2780814900E8AA0F /* GeneralElements */ = {
@@ -103,6 +111,14 @@
 				CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */,
 			);
 			path = GeneralElements;
+			sourceTree = "<group>";
+		};
+		CE8412E72780AFF300BA8B0A /* CreateTaskScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE09F0DF277F405600306207 /* CreateTaskController.swift */,
+			);
+			path = CreateTaskScreen;
 			sourceTree = "<group>";
 		};
 		CEC0A5FD2780289A003503C1 /* Extensions */ = {
@@ -255,7 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE09F0E0277F405600306207 /* ViewController.swift in Sources */,
+				CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */,
 				CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */,
 				CEC0A60627803C0B003503C1 /* ToDoItem.swift in Sources */,
 				CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */,
