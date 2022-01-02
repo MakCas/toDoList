@@ -32,6 +32,8 @@ extension String {
             static let topLabelText = "Сделать до"
         }
 
-        static let deleteButtonText = "Удалить"
+        enum DeleteButton {
+            static let text = "Удалить"
+        }
     }
 }

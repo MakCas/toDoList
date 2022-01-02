@@ -29,6 +29,15 @@ final class CreateTaskController: UIViewController {
         enum TextView {
             static let height: CGFloat = 120
         }
+
+        enum DeleteButton {
+            static let cornerRadius: CGFloat = 16
+            static let height: CGFloat = 60
+        }
+
+        enum ContainerForSmallStackView {
+            static let cornerRadius: CGFloat = 16
+        }
     }
 
     // MARK: - Subviews
@@ -72,7 +81,6 @@ final class CreateTaskController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = Layout.BigStackView.minimumLineSpacing
-        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -85,6 +93,8 @@ final class CreateTaskController: UIViewController {
 
     private lazy var containerForSmallStackView: UIView = {
         let view = UIView()
+        view.layer.cornerRadius = Layout.ContainerForSmallStackView.cornerRadius
+        view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -92,8 +102,6 @@ final class CreateTaskController: UIViewController {
     private lazy var smallStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 0
-        //        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -118,6 +126,13 @@ final class CreateTaskController: UIViewController {
 
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
+        button.setTitle(.CreateTaskController.DeleteButton.text, for: .normal)
+        button.isEnabled = true
+        button.layer.cornerRadius = Layout.DeleteButton.cornerRadius
+        button.layer.masksToBounds = true
+        button.backgroundColor = .white
+        button.setTitleColor(.gray, for: .disabled)
+        button.setTitleColor(.red, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -154,7 +169,7 @@ final class CreateTaskController: UIViewController {
         smallStackView.addArrangedSubview(deadLineView)
         //        smallStackView.addArrangedSubview(calendarView)
 
-        //        bigStackView.addArrangedSubview(deleteButton)
+        bigStackView.addArrangedSubview(deleteButton)
     }
 
     private func addConstraints() {
@@ -173,7 +188,9 @@ final class CreateTaskController: UIViewController {
             smallStackView.topAnchor.constraint(equalTo: containerForSmallStackView.topAnchor),
             smallStackView.leadingAnchor.constraint(equalTo: containerForSmallStackView.leadingAnchor),
             smallStackView.trailingAnchor.constraint(equalTo: containerForSmallStackView.trailingAnchor),
-            smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor)
+            smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor),
+
+            deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])
     }
 }
