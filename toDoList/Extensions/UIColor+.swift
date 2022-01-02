@@ -20,4 +20,8 @@ extension UIColor {
     static var backGroundColor: UIColor {
         return UIColor(red: 245, green: 244, blue: 238)
     }
+
+    static var textViewPlaceHolderColor: UIColor {
+        return UIColor(red: 200, green: 200, blue: 200)
+    }
 }

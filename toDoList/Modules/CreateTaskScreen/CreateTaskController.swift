@@ -13,12 +13,22 @@ final class CreateTaskController: UIViewController {
 
     enum Layout {
 
+        static let fontSize: CGFloat = 18
+
         enum TopStackView {
             static let insets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
             static let height: CGFloat = 50
             static let minimumLineSpacing: CGFloat = 10
         }
 
+        enum BigStackView {
+            static let insets = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: -16)
+            static let minimumLineSpacing: CGFloat = 15
+        }
+
+        enum TextView {
+            static let height: CGFloat = 120
+        }
     }
 
     // MARK: - Subviews
@@ -43,7 +53,7 @@ final class CreateTaskController: UIViewController {
     private lazy var nameScreenLabel: UILabel = {
         let label = UILabel()
         label.text = .CreateTaskController.TopStackView.nameScreenLabelText
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: Layout.fontSize, weight: .bold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,7 +62,7 @@ final class CreateTaskController: UIViewController {
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle(.CreateTaskController.TopStackView.saveButtonText, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: Layout.fontSize, weight: .bold)
         button.setTitleColor(.systemBlue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -60,12 +70,15 @@ final class CreateTaskController: UIViewController {
 
     private lazy var bigStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = Layout.BigStackView.minimumLineSpacing
+        stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
-    private lazy var taskTextView: UITextView = {
-        let textView = UITextView()
+    private lazy var taskTextView: TextViewWithPlaceholder = {
+        let textView = TextViewWithPlaceholder()
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -117,7 +130,6 @@ final class CreateTaskController: UIViewController {
     // MARK: - UI
 
     private func configureUI() {
-
         view.backgroundColor = .backGroundColor
 
         addSubviews()
@@ -125,7 +137,6 @@ final class CreateTaskController: UIViewController {
     }
 
     private func addSubviews() {
-
         view.addSubview(topStackView)
         topStackView.addArrangedSubview(cancelButton)
         topStackView.addArrangedSubview(nameScreenLabel)
@@ -133,22 +144,27 @@ final class CreateTaskController: UIViewController {
 
         view.addSubview(bigStackView)
         bigStackView.addArrangedSubview(taskTextView)
-        bigStackView.addArrangedSubview(containerForSmallStackView)
-        containerForSmallStackView.addSubview(smallStackView)
-        smallStackView.addArrangedSubview(importanceView)
-        smallStackView.addArrangedSubview(deadLineView)
-        smallStackView.addArrangedSubview(calendarView)
+        //        bigStackView.addArrangedSubview(containerForSmallStackView)
+        //        containerForSmallStackView.addSubview(smallStackView)
+        //        smallStackView.addArrangedSubview(importanceView)
+        //        smallStackView.addArrangedSubview(deadLineView)
+        //        smallStackView.addArrangedSubview(calendarView)
 
-        bigStackView.addArrangedSubview(deleteButton)
+        //        bigStackView.addArrangedSubview(deleteButton)
     }
 
     private func addConstraints() {
         NSLayoutConstraint.activate([
-
             topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.TopStackView.insets.left),
             topStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.TopStackView.insets.right),
-            topStackView.heightAnchor.constraint(equalToConstant: Layout.TopStackView.height)
+            topStackView.heightAnchor.constraint(equalToConstant: Layout.TopStackView.height),
+
+            bigStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: Layout.BigStackView.insets.top),
+            bigStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.BigStackView.insets.left),
+            bigStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.BigStackView.insets.right),
+
+            taskTextView.heightAnchor.constraint(equalToConstant: Layout.TextView.height)
         ])
     }
 }
