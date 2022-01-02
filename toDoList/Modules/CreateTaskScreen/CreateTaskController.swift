@@ -91,6 +91,9 @@ final class CreateTaskController: UIViewController {
 
     private lazy var smallStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 0
+        //        stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -101,8 +104,8 @@ final class CreateTaskController: UIViewController {
         return view
     }()
 
-    private lazy var deadLineView: UIView = {
-        let view = UIView()
+    private lazy var deadLineView: DeadLineView = {
+        let view = DeadLineView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -144,10 +147,11 @@ final class CreateTaskController: UIViewController {
 
         view.addSubview(bigStackView)
         bigStackView.addArrangedSubview(taskTextView)
-        //        bigStackView.addArrangedSubview(containerForSmallStackView)
-        //        containerForSmallStackView.addSubview(smallStackView)
-        //        smallStackView.addArrangedSubview(importanceView)
-        //        smallStackView.addArrangedSubview(deadLineView)
+
+        bigStackView.addArrangedSubview(containerForSmallStackView)
+        containerForSmallStackView.addSubview(smallStackView)
+        smallStackView.addArrangedSubview(importanceView)
+        smallStackView.addArrangedSubview(deadLineView)
         //        smallStackView.addArrangedSubview(calendarView)
 
         //        bigStackView.addArrangedSubview(deleteButton)
@@ -164,7 +168,12 @@ final class CreateTaskController: UIViewController {
             bigStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.BigStackView.insets.left),
             bigStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.BigStackView.insets.right),
 
-            taskTextView.heightAnchor.constraint(equalToConstant: Layout.TextView.height)
+            taskTextView.heightAnchor.constraint(equalToConstant: Layout.TextView.height),
+
+            smallStackView.topAnchor.constraint(equalTo: containerForSmallStackView.topAnchor),
+            smallStackView.leadingAnchor.constraint(equalTo: containerForSmallStackView.leadingAnchor),
+            smallStackView.trailingAnchor.constraint(equalTo: containerForSmallStackView.trailingAnchor),
+            smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor)
         ])
     }
 }

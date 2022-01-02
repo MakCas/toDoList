@@ -28,7 +28,10 @@ extension String {
             static let placeHolder = "Что надо сделать?"
         }
 
-        static let deadLineLabelText = "Сложность до"
+        enum DeadLineView {
+            static let topLabelText = "Сделать до"
+        }
+
         static let deleteButtonText = "Удалить"
     }
 }

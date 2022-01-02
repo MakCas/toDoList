@@ -11,7 +11,7 @@ final class ImportanceView: UIView {
 
     // MARK: - Layout
 
-    enum Layout {
+    private enum Layout {
 
         enum ImportanceLabel {
             static let leadingInset: CGFloat = 16
