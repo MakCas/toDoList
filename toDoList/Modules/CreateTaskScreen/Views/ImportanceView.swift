@@ -1,0 +1,106 @@
+//
+//  ImportanceView.swift
+//  toDoList
+//
+//  Created by User on 02.01.2022.
+//
+
+import UIKit
+
+final class ImportanceView: UIView {
+    
+    // MARK: - Layout
+    
+    enum Layout {
+        
+        enum ImportanceLabel {
+            static let leadingInset: CGFloat = 16
+        }
+        
+        enum SegmentControl {
+            static let insets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -16)
+        }
+        
+        enum LineView {
+            static let height: CGFloat = 1
+            static let insets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10)
+        }
+    }
+    
+    // MARK: - Subviews
+    
+    private lazy var importanceLabel: UILabel = {
+        let label = UILabel()
+        label.text = .CreateTaskController.ImportanceView.leftLabelText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var segmentControl: UISegmentedControl = {
+        let segmentControl = UISegmentedControl(
+            items: [
+                String.CreateTaskController.ImportanceView.arrow,
+                String.CreateTaskController.ImportanceView.noText,
+                String.CreateTaskController.ImportanceView.exclamationMark
+            ]
+        )
+        segmentControl.addTarget(self, action: #selector(segmentControlTapped(sender:)), for: .valueChanged)
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        return segmentControl
+    }()
+    
+    private lazy var lineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // MARK: - Init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UI
+    
+    private func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    private func addSubviews() {
+        addSubview(importanceLabel)
+        addSubview(segmentControl)
+        addSubview(lineView)
+    }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            importanceLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            importanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.ImportanceLabel.leadingInset),
+            
+            segmentControl.topAnchor.constraint(equalTo: topAnchor, constant: Layout.SegmentControl.insets.top),
+            segmentControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.SegmentControl.insets.right),
+            segmentControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Layout.SegmentControl.insets.bottom),
+            
+            lineView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: Layout.LineView.height),
+            lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.LineView.insets.left),
+            lineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.LineView.insets.right)
+        ])
+    }
+    
+    // MARK: - Functions
+    
+    @objc private func segmentControlTapped(sender: UISegmentedControl) {
+        let segmentControlIndex = sender.selectedSegmentIndex
+        printDebug(segmentControlIndex)
+    }
+}

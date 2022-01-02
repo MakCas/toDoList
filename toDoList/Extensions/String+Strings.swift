@@ -14,9 +14,14 @@ extension String {
         static let nameScreenLabelText = "Дело"
         static let saveButtonText = "Сохранить"
 
+        enum ImportanceView {
+            static let leftLabelText = "Важность"
+            static let noText = "Нет"
+            static let arrow = "↓"
+            static let exclamationMark = "‼"
+        }
+
         static let taskTextViewPlaceHolder = "Что надо сделать"
-        static let importanceLabelText = "Важность"
-        static let importanceNoLabelText = "Нет"
         static let deadLineLabelText = "Сложность до"
         static let deleteButtonText = "Удалить"
     }
