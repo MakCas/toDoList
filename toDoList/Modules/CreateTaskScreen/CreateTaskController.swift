@@ -118,8 +118,10 @@ final class CreateTaskController: UIViewController {
         return view
     }()
 
-    private lazy var calendarView: UIView = {
-        let view = UIView()
+    private lazy var calendarView: CalendarView = {
+        let view = CalendarView(baseDate: Date()) { date in
+            printDebug(date)
+        }
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -167,7 +169,7 @@ final class CreateTaskController: UIViewController {
         containerForSmallStackView.addSubview(smallStackView)
         smallStackView.addArrangedSubview(importanceView)
         smallStackView.addArrangedSubview(deadLineView)
-        //        smallStackView.addArrangedSubview(calendarView)
+        smallStackView.addArrangedSubview(calendarView)
 
         bigStackView.addArrangedSubview(deleteButton)
     }
@@ -189,6 +191,8 @@ final class CreateTaskController: UIViewController {
             smallStackView.leadingAnchor.constraint(equalTo: containerForSmallStackView.leadingAnchor),
             smallStackView.trailingAnchor.constraint(equalTo: containerForSmallStackView.trailingAnchor),
             smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor),
+
+//            calendarView.heightAnchor.constraint(equalToConstant: 250),
 
             deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])
