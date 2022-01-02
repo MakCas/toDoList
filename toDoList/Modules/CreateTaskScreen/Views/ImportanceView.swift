@@ -71,6 +71,7 @@ final class ImportanceView: UIView {
     // MARK: - UI
 
     private func configureUI() {
+        backgroundColor = .white
         addSubviews()
         addConstraints()
     }
