@@ -14,6 +14,7 @@
 		CE09F0E5277F405700306207 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E4277F405700306207 /* Assets.xcassets */; };
 		CE09F0E8277F405700306207 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E6277F405700306207 /* LaunchScreen.storyboard */; };
 		CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D427817B7300154DFB /* ImportanceView.swift */; };
+		CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D627818C4E00154DFB /* UIColor+.swift */; };
 		CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */; };
 		CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */; };
 		CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A5FE278028A9003503C1 /* Bundle.swift */; };
@@ -35,6 +36,7 @@
 		CE09F0E7277F405700306207 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE09F0E9277F405700306207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4389D427817B7300154DFB /* ImportanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceView.swift; sourceTree = "<group>"; };
+		CE4389D627818C4E00154DFB /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
 		CEC0A5FE278028A9003503C1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				CEC0A5FE278028A9003503C1 /* Bundle.swift */,
 				CEC0A60027802986003503C1 /* UIImage+Images.swift */,
 				CEC0A60227802A3B003503C1 /* String+Strings.swift */,
+				CE4389D627818C4E00154DFB /* UIColor+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				CEC0A60627803C0B003503C1 /* ToDoItem.swift in Sources */,
 				CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */,
 				CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */,
+				CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */,
 				CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */,
 				CE09F0DC277F405600306207 /* AppDelegate.swift in Sources */,
 				CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */,
