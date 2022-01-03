@@ -8,59 +8,58 @@
 import Foundation
 
 protocol FileCacheProtocol {
-    
+
     var toDoItems: [ToDoItem] { get }
-    
+
     func addToDoItem(_ item: ToDoItem)
     func removeItemFor(id: String)
-    func save(items: [ToDoItem], to fileName: String)
-    func loadItemsFromFileWith(name: String) -> [ToDoItem]?
+    func saveItemsToFile()
+    func loadItemsFromFile() -> [ToDoItem]?
 }
 
 // MARK: - Class
 
 final class FileCache {
-    
+
     private(set) var toDoItems = [ToDoItem]()
+    private var fileName: String
+
+    init(fileName: String) {
+        self.fileName = fileName
+    }
 }
 
 // MARK: - FileCacheProtocol
 
 extension FileCache: FileCacheProtocol {
-    
+
     func addToDoItem(_ item: ToDoItem) {
         toDoItems.append(item)
     }
-    
+
     func removeItemFor(id: String) {
         toDoItems.removeAll { $0.id == id }
     }
-    
-    func save(items: [ToDoItem], to fileName: String) {
+
+    func saveItemsToFile() {
         do {
-            let allItemsJSONData = items.map({ $0.json }) as? [Data]
-            guard let allItemsJSONData = allItemsJSONData else { return }
-            let allItemsOneData = try JSONSerialization.data(withJSONObject: [allItemsJSONData], options: .fragmentsAllowed)
+            let allItemsJSONData = toDoItems.map({ $0.json })
+            let allItemsOneData = try JSONSerialization.data(withJSONObject: allItemsJSONData)
             FileManagerService.shared.saveFileAt(fileName: fileName, fileData: allItemsOneData)
         } catch {
-            printDebug(error.localizedDescription)
+            fatalError(error.localizedDescription)
         }
     }
-    
-    func loadItemsFromFileWith(name: String) -> [ToDoItem]? {
-        guard let allItemsInOneData = FileManagerService.shared.loadFileDataAt(fileName: name) else { return nil }
-        
+
+    func loadItemsFromFile() -> [ToDoItem]? {
+        guard let allItemsInOneData = FileManagerService.shared.loadFileDataAt(fileName: fileName) else { return nil }
+
         do {
-            let allItemsJSONS = try JSONSerialization.jsonObject(with: allItemsInOneData, options: .fragmentsAllowed) as? [Data]
-            guard let toDoItemsOneData = allItemsJSONS else { return nil }
-            let toDoItems: [ToDoItem] = toDoItemsOneData.compactMap { jsonData in
-                let toDoItem = ToDoItem.parse(json: jsonData)
-                return toDoItem
-            }
-            return toDoItems.isEmpty ? nil: toDoItems
+            let allItemsJSONS = try JSONSerialization.jsonObject(with: allItemsInOneData) as? [Any]
+            return allItemsJSONS?.compactMap { ToDoItem.parse(json: $0) }
         } catch {
             printDebug(error.localizedDescription)
-            return nil
         }
+        return nil
     }
 }
