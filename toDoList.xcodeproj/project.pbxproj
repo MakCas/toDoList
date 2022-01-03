@@ -13,10 +13,6 @@
 		CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DF277F405600306207 /* CreateTaskController.swift */; };
 		CE09F0E5277F405700306207 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E4277F405700306207 /* Assets.xcassets */; };
 		CE09F0E8277F405700306207 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		CE1D65062781B38300C9F975 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D65052781B38300C9F975 /* CalendarView.swift */; };
-		CE1D65092781B60900C9F975 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D65082781B60900C9F975 /* Date.swift */; };
-		CE1D650B2781B72C00C9F975 /* MonthMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D650A2781B72C00C9F975 /* MonthMetadata.swift */; };
-		CE1D650D2781BAEF00C9F975 /* CalendarDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D650C2781BAEF00C9F975 /* CalendarDateCollectionViewCell.swift */; };
 		CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D427817B7300154DFB /* ImportanceView.swift */; };
 		CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D627818C4E00154DFB /* UIColor+.swift */; };
 		CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */; };
@@ -24,7 +20,6 @@
 		CE4389DD2781981B00154DFB /* DeadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389DC2781981B00154DFB /* DeadLineView.swift */; };
 		CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */; };
 		CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */; };
-		CE77843B2781DC47004F8A29 /* CalendarPickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77843A2781DC47004F8A29 /* CalendarPickerHeaderView.swift */; };
 		CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A5FE278028A9003503C1 /* Bundle.swift */; };
 		CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60027802986003503C1 /* UIImage+Images.swift */; };
 		CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60227802A3B003503C1 /* String+Strings.swift */; };
@@ -44,10 +39,6 @@
 		CE09F0DF277F405600306207 /* CreateTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskController.swift; sourceTree = "<group>"; };
 		CE09F0E4277F405700306207 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE09F0E9277F405700306207 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE1D65052781B38300C9F975 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		CE1D65082781B60900C9F975 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		CE1D650A2781B72C00C9F975 /* MonthMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthMetadata.swift; sourceTree = "<group>"; };
-		CE1D650C2781BAEF00C9F975 /* CalendarDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE4389D427817B7300154DFB /* ImportanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceView.swift; sourceTree = "<group>"; };
 		CE4389D627818C4E00154DFB /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithPlaceholder.swift; sourceTree = "<group>"; };
@@ -55,7 +46,6 @@
 		CE4389DC2781981B00154DFB /* DeadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineView.swift; sourceTree = "<group>"; };
 		CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
-		CE77843A2781DC47004F8A29 /* CalendarPickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPickerHeaderView.swift; sourceTree = "<group>"; };
 		CEC0A5FE278028A9003503C1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CEC0A60027802986003503C1 /* UIImage+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Images.swift"; sourceTree = "<group>"; };
 		CEC0A60227802A3B003503C1 /* String+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Strings.swift"; sourceTree = "<group>"; };
@@ -130,26 +120,6 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		CE1D65042781B36A00C9F975 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				CE1D65072781B60200C9F975 /* Models */,
-				CE1D65052781B38300C9F975 /* CalendarView.swift */,
-				CE1D650C2781BAEF00C9F975 /* CalendarDateCollectionViewCell.swift */,
-				CE77843A2781DC47004F8A29 /* CalendarPickerHeaderView.swift */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
-		CE1D65072781B60200C9F975 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CE1D65082781B60900C9F975 /* Date.swift */,
-				CE1D650A2781B72C00C9F975 /* MonthMetadata.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		CE4389D327817B5900154DFB /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				CE4389D327817B5900154DFB /* Views */,
-				CE1D65042781B36A00C9F975 /* Calendar */,
 				CE09F0DF277F405600306207 /* CreateTaskController.swift */,
 			);
 			path = CreateTaskScreen;
@@ -342,19 +311,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */,
-				CE1D650B2781B72C00C9F975 /* MonthMetadata.swift in Sources */,
 				CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */,
-				CE1D650D2781BAEF00C9F975 /* CalendarDateCollectionViewCell.swift in Sources */,
-				CE1D65062781B38300C9F975 /* CalendarView.swift in Sources */,
 				CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */,
 				CEC0A60627803C0B003503C1 /* ToDoItem.swift in Sources */,
 				CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */,
-				CE1D65092781B60900C9F975 /* Date.swift in Sources */,
 				CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */,
 				CE4389DB278190DF00154DFB /* String?+.swift in Sources */,
 				CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */,
 				CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */,
-				CE77843B2781DC47004F8A29 /* CalendarPickerHeaderView.swift in Sources */,
 				CE09F0DC277F405600306207 /* AppDelegate.swift in Sources */,
 				CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */,
 				CEC0A609278064EB003503C1 /* FileCache.swift in Sources */,
@@ -440,7 +404,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -497,7 +461,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -523,7 +487,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -553,7 +517,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

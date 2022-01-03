@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 struct ToDoItem {
 
     // MARK: - Structure

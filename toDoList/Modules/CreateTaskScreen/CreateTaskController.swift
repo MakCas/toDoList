@@ -123,12 +123,14 @@ final class CreateTaskController: UIViewController {
         return view
     }()
 
-    private lazy var calendarView: CalendarView = {
-        let view = CalendarView(baseDate: Date()) { date in
-            printDebug(date)
-        }
+    private lazy var calendarDatePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.backgroundColor = .white
+        datePicker.addTarget(self, action: #selector(datePickerTapped(sender:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        return datePicker
     }()
 
     private lazy var deleteButton: UIButton = {
@@ -154,6 +156,10 @@ final class CreateTaskController: UIViewController {
 
     // MARK: - UI
 
+    @objc private func datePickerTapped(sender: UIDatePicker) {
+        printDebug(sender.date)
+    }
+
     private func configureUI() {
         view.backgroundColor = .backGroundColor
 
@@ -174,7 +180,7 @@ final class CreateTaskController: UIViewController {
         containerForSmallStackView.addSubview(smallStackView)
         smallStackView.addArrangedSubview(importanceView)
         smallStackView.addArrangedSubview(deadLineView)
-        smallStackView.addArrangedSubview(calendarView)
+        smallStackView.addArrangedSubview(calendarDatePicker)
 
         bigStackView.addArrangedSubview(deleteButton)
     }
@@ -196,8 +202,6 @@ final class CreateTaskController: UIViewController {
             smallStackView.leadingAnchor.constraint(equalTo: containerForSmallStackView.leadingAnchor),
             smallStackView.trailingAnchor.constraint(equalTo: containerForSmallStackView.trailingAnchor),
             smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor),
-
-            //            calendarView.heightAnchor.constraint(equalToConstant: 250),
 
             deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])
