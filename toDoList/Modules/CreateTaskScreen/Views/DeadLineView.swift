@@ -62,13 +62,13 @@ final class DeadLineView: UIView {
 
     private lazy var switcher: UISwitch = {
         let switcher = UISwitch()
-        switcher.translatesAutoresizingMaskIntoConstraints = false
         return UISwitch()
     }()
 
     private lazy var lineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray5
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -94,24 +94,23 @@ final class DeadLineView: UIView {
     }
 
     private func addSubviews() {
+        switcher.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(switcher)
         addSubview(stackView)
-        //        addSubview(switcher)
         stackView.addArrangedSubview(topLabel)
         stackView.addArrangedSubview(belowLabel)
         addSubview(lineView)
+
     }
 
     private func addConstraints() {
         NSLayoutConstraint.activate([
-
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: Layout.StackView.insets.top),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.StackView.insets.left),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Layout.StackView.insets.bottom),
+            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            //            switcher.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
-            //            switcher.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.Switcher.trailingInset),
-            //            switcher.heightAnchor.constraint(equalToConstant: 25),
-            //            switcher.widthAnchor.constraint(equalToConstant: 25),
+            switcher.centerYAnchor.constraint(equalTo: centerYAnchor),
+            switcher.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.Switcher.trailingInset),
 
             lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.LineView.insets.left),
             lineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.LineView.insets.right),

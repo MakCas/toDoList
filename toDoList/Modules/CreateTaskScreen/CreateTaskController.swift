@@ -30,8 +30,16 @@ final class CreateTaskController: UIViewController {
             static let minimumLineSpacing: CGFloat = 15
         }
 
+        enum ImportanceView {
+            static let height: CGFloat = 65
+        }
+
+        enum DeadLineView {
+            static let height: CGFloat = 65
+        }
+
         enum TextView {
-            static let height: CGFloat = 120
+            static let height: CGFloat = 150
         }
 
         enum DeleteButton {
@@ -78,6 +86,8 @@ final class CreateTaskController: UIViewController {
         button.setTitle(Layout.TopStackView.saveButtonTextKey, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: Layout.fontSize, weight: .bold)
         button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.systemGray2, for: .disabled)
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -129,6 +139,7 @@ final class CreateTaskController: UIViewController {
         datePicker.preferredDatePickerStyle = .inline
         datePicker.backgroundColor = .white
         datePicker.addTarget(self, action: #selector(datePickerTapped(sender:)), for: .valueChanged)
+        datePicker.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
@@ -136,12 +147,12 @@ final class CreateTaskController: UIViewController {
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle(Layout.DeleteButton.title, for: .normal)
-        button.isEnabled = true
         button.layer.cornerRadius = Layout.DeleteButton.cornerRadius
         button.layer.masksToBounds = true
         button.backgroundColor = .white
-        button.setTitleColor(.gray, for: .disabled)
+        button.setTitleColor(.systemGray2, for: .disabled)
         button.setTitleColor(.red, for: .normal)
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -175,7 +186,7 @@ final class CreateTaskController: UIViewController {
 
         view.addSubview(bigStackView)
         bigStackView.addArrangedSubview(taskTextView)
-
+        
         bigStackView.addArrangedSubview(containerForSmallStackView)
         containerForSmallStackView.addSubview(smallStackView)
         smallStackView.addArrangedSubview(importanceView)
@@ -197,6 +208,8 @@ final class CreateTaskController: UIViewController {
             bigStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.BigStackView.insets.right),
 
             taskTextView.heightAnchor.constraint(equalToConstant: Layout.TextView.height),
+            importanceView.heightAnchor.constraint(equalToConstant: Layout.ImportanceView.height),
+            deadLineView.heightAnchor.constraint(equalToConstant: Layout.DeadLineView.height),
 
             smallStackView.topAnchor.constraint(equalTo: containerForSmallStackView.topAnchor),
             smallStackView.leadingAnchor.constraint(equalTo: containerForSmallStackView.leadingAnchor),

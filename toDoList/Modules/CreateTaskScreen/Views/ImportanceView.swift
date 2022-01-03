@@ -19,7 +19,7 @@ final class ImportanceView: UIView {
         }
         
         enum SegmentControl {
-            static let insets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -16)
+            static let insets = UIEdgeInsets(top: 13, left: 0, bottom: -13, right: -16)
             static let arrow = "↓"
             static let noText = "noText".localised()
             static let exclamationMark = "‼"
@@ -48,6 +48,7 @@ final class ImportanceView: UIView {
                 Layout.SegmentControl.exclamationMark
             ]
         )
+        segmentControl.selectedSegmentIndex = 2
         segmentControl.addTarget(self, action: #selector(segmentControlTapped(sender:)), for: .valueChanged)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentControl
@@ -55,7 +56,7 @@ final class ImportanceView: UIView {
     
     private lazy var lineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -88,11 +89,13 @@ final class ImportanceView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
+
             importanceLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             importanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.ImportanceLabel.leadingInset),
-            
+
             segmentControl.topAnchor.constraint(equalTo: topAnchor, constant: Layout.SegmentControl.insets.top),
             segmentControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.SegmentControl.insets.right),
+            segmentControl.widthAnchor.constraint(equalToConstant: 150),
             segmentControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Layout.SegmentControl.insets.bottom),
             
             lineView.bottomAnchor.constraint(equalTo: bottomAnchor),

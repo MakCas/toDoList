@@ -123,8 +123,8 @@
 		CE4389D327817B5900154DFB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CE4389D427817B7300154DFB /* ImportanceView.swift */,
 				CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */,
+				CE4389D427817B7300154DFB /* ImportanceView.swift */,
 				CE4389DC2781981B00154DFB /* DeadLineView.swift */,
 			);
 			path = Views;
