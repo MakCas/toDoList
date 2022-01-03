@@ -19,6 +19,10 @@ final class CreateTaskController: UIViewController {
             static let insets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
             static let height: CGFloat = 50
             static let minimumLineSpacing: CGFloat = 10
+
+            static let cancelButtonTextKey = "cancelButtonText".localised()
+            static let nameScreenLabelTextKey = "nameScreenLabelText".localised()
+            static let saveButtonTextKey = "saveButtonText".localised()
         }
 
         enum BigStackView {
@@ -33,6 +37,7 @@ final class CreateTaskController: UIViewController {
         enum DeleteButton {
             static let cornerRadius: CGFloat = 16
             static let height: CGFloat = 60
+            static let title = "delete".localised()
         }
 
         enum ContainerForSmallStackView {
@@ -53,7 +58,7 @@ final class CreateTaskController: UIViewController {
 
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle(.CreateTaskController.TopStackView.cancelButtonText, for: .normal)
+        button.setTitle(Layout.TopStackView.cancelButtonTextKey, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -61,7 +66,7 @@ final class CreateTaskController: UIViewController {
 
     private lazy var nameScreenLabel: UILabel = {
         let label = UILabel()
-        label.text = .CreateTaskController.TopStackView.nameScreenLabelText
+        label.text = Layout.TopStackView.nameScreenLabelTextKey
         label.font = UIFont.systemFont(ofSize: Layout.fontSize, weight: .bold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +75,7 @@ final class CreateTaskController: UIViewController {
 
     private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle(.CreateTaskController.TopStackView.saveButtonText, for: .normal)
+        button.setTitle(Layout.TopStackView.saveButtonTextKey, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: Layout.fontSize, weight: .bold)
         button.setTitleColor(.systemBlue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -128,7 +133,7 @@ final class CreateTaskController: UIViewController {
 
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
-        button.setTitle(.CreateTaskController.DeleteButton.text, for: .normal)
+        button.setTitle(Layout.DeleteButton.title, for: .normal)
         button.isEnabled = true
         button.layer.cornerRadius = Layout.DeleteButton.cornerRadius
         button.layer.masksToBounds = true
@@ -192,7 +197,7 @@ final class CreateTaskController: UIViewController {
             smallStackView.trailingAnchor.constraint(equalTo: containerForSmallStackView.trailingAnchor),
             smallStackView.bottomAnchor.constraint(equalTo: containerForSmallStackView.bottomAnchor),
 
-//            calendarView.heightAnchor.constraint(equalToConstant: 250),
+            //            calendarView.heightAnchor.constraint(equalToConstant: 250),
 
             deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])

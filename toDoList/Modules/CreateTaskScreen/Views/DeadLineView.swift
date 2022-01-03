@@ -13,6 +13,10 @@ final class DeadLineView: UIView {
 
     private enum Layout {
 
+        enum TopLabel {
+            static let text = "doTill".localised()
+        }
+
         enum StackView {
             static let insets = UIEdgeInsets(top: 15, left: 16, bottom: -15, right: 0)
         }
@@ -42,7 +46,7 @@ final class DeadLineView: UIView {
 
     private lazy var topLabel: UILabel = {
         let label = UILabel()
-        label.text = .CreateTaskController.DeadLineView.topLabelText
+        label.text = Layout.TopLabel.text
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

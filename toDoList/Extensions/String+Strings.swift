@@ -9,31 +9,7 @@ import Foundation
 
 extension String {
 
-    enum CreateTaskController {
-
-        enum TopStackView {
-            static let cancelButtonText = "Отменить"
-            static let nameScreenLabelText = "Дело"
-            static let saveButtonText = "Сохранить"
-        }
-
-        enum ImportanceView {
-            static let leftLabelText = "Важность"
-            static let noText = "Нет"
-            static let arrow = "↓"
-            static let exclamationMark = "‼"
-        }
-
-        enum TaskTextView {
-            static let placeHolder = "Что надо сделать?"
-        }
-
-        enum DeadLineView {
-            static let topLabelText = "Сделать до"
-        }
-
-        enum DeleteButton {
-            static let text = "Удалить"
-        }
+    func localised() -> String {
+        return NSLocalizedString(self, comment: "")
     }
 }

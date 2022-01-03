@@ -15,10 +15,14 @@ final class ImportanceView: UIView {
         
         enum ImportanceLabel {
             static let leadingInset: CGFloat = 16
+            static let text = "importance".localised()
         }
         
         enum SegmentControl {
             static let insets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: -16)
+            static let arrow = "↓"
+            static let noText = "noText".localised()
+            static let exclamationMark = "‼"
         }
         
         enum LineView {
@@ -31,7 +35,7 @@ final class ImportanceView: UIView {
     
     private lazy var importanceLabel: UILabel = {
         let label = UILabel()
-        label.text = .CreateTaskController.ImportanceView.leftLabelText
+        label.text = Layout.ImportanceLabel.text
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,9 +43,9 @@ final class ImportanceView: UIView {
     private lazy var segmentControl: UISegmentedControl = {
         let segmentControl = UISegmentedControl(
             items: [
-                String.CreateTaskController.ImportanceView.arrow,
-                String.CreateTaskController.ImportanceView.noText,
-                String.CreateTaskController.ImportanceView.exclamationMark
+                Layout.SegmentControl.arrow,
+                Layout.SegmentControl.noText,
+                Layout.SegmentControl.exclamationMark
             ]
         )
         segmentControl.addTarget(self, action: #selector(segmentControlTapped(sender:)), for: .valueChanged)
