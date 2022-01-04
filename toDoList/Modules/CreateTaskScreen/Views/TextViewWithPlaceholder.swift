@@ -41,7 +41,6 @@ final class TextViewWithPlaceholder: UITextView {
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-
         configureUI()
         addTextViewGesture()
     }
