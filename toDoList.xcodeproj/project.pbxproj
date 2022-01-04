@@ -12,7 +12,7 @@
 		CE09F0DE277F405600306207 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DD277F405600306207 /* SceneDelegate.swift */; };
 		CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09F0DF277F405600306207 /* CreateTaskController.swift */; };
 		CE09F0E5277F405700306207 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE09F0E4277F405700306207 /* Assets.xcassets */; };
-		CE09F0E8277F405700306207 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		CE09F0E8277F405700306207 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D427817B7300154DFB /* ImportanceView.swift */; };
 		CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D627818C4E00154DFB /* UIColor+.swift */; };
 		CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */; };
@@ -209,8 +209,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE09F0EC277F405700306207 /* Build configuration list for PBXNativeTarget "toDoList" */;
 			buildPhases = (
-				CECCD7C7277F743600D29820 /* ShellScript */,
 				8725F846EF7C850DE3E503F2 /* [CP] Check Pods Manifest.lock */,
+				CECCD7C7277F743600D29820 /* ShellScript */,
 				CE09F0D4277F405600306207 /* Sources */,
 				CE09F0D5277F405600306207 /* Frameworks */,
 				CE09F0D6277F405600306207 /* Resources */,
@@ -263,7 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE09F0E8277F405700306207 /* (null) in Resources */,
+				CE09F0E8277F405700306207 /* BuildFile in Resources */,
 				CED5D7802782CE2700B96017 /* LaunchScreen.storyboard in Resources */,
 				CE09F0E5277F405700306207 /* Assets.xcassets in Resources */,
 				CED5D7742782C5D800B96017 /* Localizable.strings in Resources */,

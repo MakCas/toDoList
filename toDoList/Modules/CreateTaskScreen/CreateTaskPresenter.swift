@@ -39,7 +39,7 @@ final class CreteTaskPresenter {
     private func makeSaveButtonEnabledIfNeeded() {
         guard
             !toDoItemViewModel.text.isNilOrEmpty,
-            let importance = toDoItemViewModel.importance
+            toDoItemViewModel.importance != nil
         else {
             viewInput?.makeSaveButton(enable: false)
             return
@@ -86,6 +86,7 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
             return
         }
         let toDoItem = ToDoItem(text: text, importance: importance, deadLine: toDoItemViewModel.deadLine)
+        printDebug(toDoItem)
         return
     }
 }
