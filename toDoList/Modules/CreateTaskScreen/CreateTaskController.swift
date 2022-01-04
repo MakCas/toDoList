@@ -25,11 +25,14 @@ final class CreateTaskController: UIViewController {
             static let saveButtonTextKey = "saveButtonText".localised()
         }
         
-        enum BigStackView {
+        enum ScrollView {
             static let insets = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: -16)
+        }
+
+        enum BigStackView {
             static let minimumLineSpacing: CGFloat = 15
         }
-        
+
         enum ImportanceView {
             static let height: CGFloat = 65
         }
@@ -54,7 +57,7 @@ final class CreateTaskController: UIViewController {
     }
     
     // MARK: - Subviews
-    
+
     private lazy var topStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -62,6 +65,13 @@ final class CreateTaskController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
+    }()
+
+    private lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var cancelButton: UIButton = {
@@ -202,16 +212,18 @@ final class CreateTaskController: UIViewController {
         topStackView.addArrangedSubview(cancelButton)
         topStackView.addArrangedSubview(nameScreenLabel)
         topStackView.addArrangedSubview(saveButton)
-        
-        view.addSubview(bigStackView)
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(bigStackView)
+
         bigStackView.addArrangedSubview(taskTextView)
-        
         bigStackView.addArrangedSubview(containerForSmallStackView)
+
         containerForSmallStackView.addSubview(smallStackView)
         smallStackView.addArrangedSubview(importanceView)
         smallStackView.addArrangedSubview(deadLineView)
         smallStackView.addArrangedSubview(calendarDatePicker)
-        
+
         bigStackView.addArrangedSubview(deleteButton)
     }
     
@@ -221,10 +233,17 @@ final class CreateTaskController: UIViewController {
             topStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.TopStackView.insets.left),
             topStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.TopStackView.insets.right),
             topStackView.heightAnchor.constraint(equalToConstant: Layout.TopStackView.height),
-            
-            bigStackView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: Layout.BigStackView.insets.top),
-            bigStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.BigStackView.insets.left),
-            bigStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.BigStackView.insets.right),
+
+            scrollView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: Layout.ScrollView.insets.top),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.ScrollView.insets.left),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.ScrollView.insets.right),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            bigStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            bigStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            bigStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            bigStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            bigStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             taskTextView.heightAnchor.constraint(equalToConstant: Layout.TextView.height),
             importanceView.heightAnchor.constraint(equalToConstant: Layout.ImportanceView.height),
