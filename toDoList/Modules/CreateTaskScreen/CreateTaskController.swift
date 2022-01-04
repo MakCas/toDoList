@@ -158,6 +158,21 @@ final class CreateTaskController: UIViewController {
         return button
     }()
 
+    // MARK: - Properties
+
+    private var presenter: CreteTaskViewOutput
+
+    // MARK: - Init
+
+    init(presenter: CreteTaskViewOutput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -227,9 +242,22 @@ final class CreateTaskController: UIViewController {
 extension CreateTaskController: DeadLineViewDelegate {
 
     func deadLineSwitchChanged(isOn: Bool) {
-        calendarDatePicker.isHidden.toggle()
-        if isOn {
-            calendarDatePicker.setDate(Date(), animated: false)
-        }
+        presenter.deadLineSwitchChanged(isOn: isOn)
+    }
+}
+
+// MARK: - CreteTaskViewInput
+
+extension CreateTaskController: CreteTaskViewInput {
+
+    func showDatePicker(for date: Date) {
+        calendarDatePicker.isHidden = false
+        calendarDatePicker.setDate(date, animated: false)
+        deadLineView.makeLayoutForSwitcherIsON()
+    }
+
+    func hideDatePicker() {
+        calendarDatePicker.isHidden = true
+        deadLineView.makeLayoutForSwitcherIsOff()
     }
 }

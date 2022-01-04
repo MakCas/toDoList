@@ -7,30 +7,30 @@
 
 import UIKit
 
+// MARK: - Structure
+
+enum ToDoItemImportance: String {
+    
+    case notImportant
+    case usual
+    case important
+}
+
 struct ToDoItem {
-
-    // MARK: - Structure
-
-    enum Importance: String {
-
-        case notImportant
-        case usual
-        case important
-    }
-
+    
     // MARK: - Properties
-
+    
     let id: String
     let text: String
-    let importance: Importance
+    let importance: ToDoItemImportance
     let deadLine: Date?
-
+    
     // MARK: - Init
-
+    
     init(
         id: String = UUID().uuidString,
         text: String,
-        importance: Importance,
+        importance: ToDoItemImportance,
         deadLine: Date? = nil
     ) {
         self.id = id
@@ -53,7 +53,7 @@ extension ToDoItem {
         if importance != .usual {
             toDoItemDictionary["importance"] = importance.rawValue as Any
         }
-
+        
         if let deadLine = deadLine?.timeIntervalSince1970 {
             toDoItemDictionary["deadLine"] = deadLine as Any
         }
@@ -64,7 +64,7 @@ extension ToDoItem {
             fatalError("Error during serialization")
         }
     }
-
+    
     static func parse(json: Any) -> ToDoItem? {
         guard
             let toDoItemJson = json as? [String: Any],
@@ -73,20 +73,20 @@ extension ToDoItem {
         else {
             return nil
         }
-
+        
         let importance = toDoItemJson["importance"] as? String
         let deadLine = toDoItemJson["deadLine"] as? TimeInterval
-
+        
         var deadLineDate: Date?
         if let deadLine = deadLine {
             deadLineDate = Date(timeIntervalSince1970: deadLine)
         }
-
-        var importanceForCreateItem: Importance?
+        
+        var importanceForCreateItem: ToDoItemImportance?
         if let importanceString = importance {
             importanceForCreateItem = .init(rawValue: importanceString)
         }
-
+        
         return ToDoItem(
             id: id,
             text: text,
