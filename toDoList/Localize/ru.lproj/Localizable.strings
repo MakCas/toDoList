@@ -1,0 +1,20 @@
+/* 
+ Localizable.strings
+ toDoList
+
+ Created by User on 03.01.2022.
+
+ */
+
+// MARK: - CreateTaskController
+
+"cancelButtonText" = "Отменить";
+"nameScreenLabelText" = "Дело";
+"saveButtonText" = "Сохранить";
+"placeHolderForTextView" = "Что надо сделать?";
+"importance" = "Важность";
+"arrow" = "↓";
+"noText" = "Нет";
+"exclamationMark" = "‼";
+"doTill" = "Сделать до";
+"delete" = "Удалить";

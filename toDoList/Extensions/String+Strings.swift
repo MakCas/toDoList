@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
 
-    enum ViewController {
-        static let appVersion =  Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    func localised() -> String {
+        return NSLocalizedString(self, comment: "")
     }
 }

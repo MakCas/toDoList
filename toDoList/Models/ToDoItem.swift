@@ -7,14 +7,14 @@
 
 import UIKit
 
-enum ToDoItemImportanceEnum: String {
+// MARK: - Structure
+
+enum ToDoItemImportance: String {
     
     case notImportant
     case usual
     case important
 }
-
-// MARK: - Struct
 
 struct ToDoItem {
     
@@ -22,7 +22,7 @@ struct ToDoItem {
     
     let id: String
     let text: String
-    let importance: ToDoItemImportanceEnum
+    let importance: ToDoItemImportance
     let deadLine: Date?
     
     // MARK: - Init
@@ -30,16 +30,12 @@ struct ToDoItem {
     init(
         id: String = UUID().uuidString,
         text: String,
-        importance: ToDoItemImportanceEnum?,
+        importance: ToDoItemImportance,
         deadLine: Date? = nil
     ) {
         self.id = id
         self.text = text
-        if let importance = importance {
-            self.importance = importance
-        } else {
-            self.importance = .usual
-        }
+        self.importance = importance
         self.deadLine = deadLine
     }
 }
@@ -48,60 +44,54 @@ struct ToDoItem {
 
 extension ToDoItem {
     
-    var json: Any? {
+    var json: Any {
         var toDoItemDictionary: [String: Any] = [
-            "id": self.id as Any,
-            "text": self.text as Any
+            "id": id as Any,
+            "text": text as Any
         ]
         
-        if self.importance != .usual {
-            toDoItemDictionary["importance"] = self.importance.rawValue as Any
+        if importance != .usual {
+            toDoItemDictionary["importance"] = importance.rawValue as Any
         }
         
-        if let deadLine = self.deadLine?.timeIntervalSince1970 {
+        if let deadLine = deadLine?.timeIntervalSince1970 {
             toDoItemDictionary["deadLine"] = deadLine as Any
         }
         
         do {
-            let json = try JSONSerialization.data(withJSONObject: toDoItemDictionary, options: .fragmentsAllowed)
-            return json
+            return try JSONSerialization.data(withJSONObject: toDoItemDictionary)
         } catch {
-            return nil
+            fatalError("Error during serialization")
         }
     }
     
     static func parse(json: Any) -> ToDoItem? {
-        let toDoItemJson = json as? [String: Any]
-        guard let toDoItemJson = toDoItemJson else { return nil }
-        let id = toDoItemJson["id"] as? String
-        let text = toDoItemJson["text"] as? String
-        let importance = toDoItemJson["importance"] as? String
-        let deadLine = toDoItemJson["deadLine"] as? Double
-        
         guard
-            let id = id,
-            let text = text
+            let toDoItemJson = json as? [String: Any],
+            let id = toDoItemJson["id"] as? String,
+            let text = toDoItemJson["text"] as? String
         else {
             return nil
         }
+        
+        let importance = toDoItemJson["importance"] as? String
+        let deadLine = toDoItemJson["deadLine"] as? TimeInterval
         
         var deadLineDate: Date?
         if let deadLine = deadLine {
             deadLineDate = Date(timeIntervalSince1970: deadLine)
         }
         
-        var importanceForCreateItem: ToDoItemImportanceEnum?
+        var importanceForCreateItem: ToDoItemImportance?
         if let importanceString = importance {
-            let importanceEnum = ToDoItemImportanceEnum.init(rawValue: importanceString)
-            importanceForCreateItem = importanceEnum
+            importanceForCreateItem = .init(rawValue: importanceString)
         }
         
-        let toDoItem = ToDoItem(
+        return ToDoItem(
             id: id,
             text: text,
-            importance: importanceForCreateItem,
+            importance: importanceForCreateItem ?? .usual,
             deadLine: deadLineDate
         )
-        return toDoItem
     }
 }
