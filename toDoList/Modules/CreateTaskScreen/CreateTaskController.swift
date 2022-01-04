@@ -123,6 +123,7 @@ final class CreateTaskController: UIViewController {
 
     private lazy var importanceView: ImportanceView = {
         let view = ImportanceView()
+        deadLineView.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -168,7 +169,7 @@ final class CreateTaskController: UIViewController {
     // MARK: - UI
 
     @objc private func datePickerTapped(sender: UIDatePicker) {
-        printDebug(sender.date)
+        deadLineView.dateChosen(sender.date)
     }
 
     private func configureUI() {
@@ -218,5 +219,17 @@ final class CreateTaskController: UIViewController {
 
             deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])
+    }
+}
+
+// MARK: - DeadLineViewDelegate
+
+extension CreateTaskController: DeadLineViewDelegate {
+
+    func deadLineSwitchChanged(isOn: Bool) {
+        calendarDatePicker.isHidden.toggle()
+        if isOn {
+            calendarDatePicker.setDate(Date(), animated: false)
+        }
     }
 }

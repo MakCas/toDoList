@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ImportanceViewDelegate: AnyObject {
+
+}
+
 final class ImportanceView: UIView {
     
     // MARK: - Layout
@@ -60,6 +64,10 @@ final class ImportanceView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+    // MARK: - Properties
+
+    weak var delegate: ImportanceViewDelegate?
     
     // MARK: - Init
     

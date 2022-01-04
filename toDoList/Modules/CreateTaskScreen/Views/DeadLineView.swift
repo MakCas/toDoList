@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DeadLineViewDelegate: AnyObject {
+    func deadLineSwitchChanged(isOn: Bool)
+}
+
 final class DeadLineView: UIView {
 
     // MARK: - Layout
@@ -53,9 +57,9 @@ final class DeadLineView: UIView {
 
     private lazy var belowLabel: UILabel = {
         let label = UILabel()
-        label.text = "Test"
         label.textColor = .blue
         label.font = UIFont.systemFont(ofSize: Layout.BelowLabel.fontSize)
+        label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -73,6 +77,10 @@ final class DeadLineView: UIView {
         return view
     }()
 
+    // MARK: - Properties
+
+    weak var delegate: DeadLineViewDelegate?
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -89,19 +97,22 @@ final class DeadLineView: UIView {
 
     private func configureUI() {
         backgroundColor = .white
+        configureSwitcher()
         addSubviews()
         addConstraints()
     }
 
-    private func addSubviews() {
+    private func configureSwitcher() {
         switcher.translatesAutoresizingMaskIntoConstraints = false
+        switcher.addTarget(self, action: #selector(switcherChanged(_:)), for: .valueChanged)
+    }
 
+    private func addSubviews() {
         addSubview(switcher)
         addSubview(stackView)
         stackView.addArrangedSubview(topLabel)
         stackView.addArrangedSubview(belowLabel)
         addSubview(lineView)
-
     }
 
     private func addConstraints() {
@@ -117,5 +128,22 @@ final class DeadLineView: UIView {
             lineView.bottomAnchor.constraint(equalTo: bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: Layout.LineView.height)
         ])
+    }
+
+    // MARK: - Private Functions
+
+    @objc private func switcherChanged(_ sender: UISwitch) {
+        delegate?.deadLineSwitchChanged(isOn: sender.isOn)
+        lineView.isHidden.toggle()
+        belowLabel.isHidden.toggle()
+        if sender.isOn {
+            belowLabel.text = Date().description
+        }
+    }
+
+    // MARK: - Public Functions
+
+    func dateChosen(_ date: Date) {
+        belowLabel.text = date.description
     }
 }
