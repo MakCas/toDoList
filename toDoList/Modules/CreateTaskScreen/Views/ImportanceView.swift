@@ -9,6 +9,7 @@ import UIKit
 
 protocol ImportanceViewDelegate: AnyObject {
 
+    func importanceChosen(_ importance: ToDoItemImportance)
 }
 
 final class ImportanceView: UIView {
@@ -52,7 +53,6 @@ final class ImportanceView: UIView {
                 Layout.SegmentControl.exclamationMark
             ]
         )
-        segmentControl.selectedSegmentIndex = 2
         segmentControl.addTarget(self, action: #selector(segmentControlTapped(sender:)), for: .valueChanged)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentControl
@@ -68,12 +68,12 @@ final class ImportanceView: UIView {
     // MARK: - Properties
 
     weak var delegate: ImportanceViewDelegate?
-    
+
     // MARK: - Init
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         configureUI()
     }
     
@@ -103,9 +103,9 @@ final class ImportanceView: UIView {
 
             segmentControl.topAnchor.constraint(equalTo: topAnchor, constant: Layout.SegmentControl.insets.top),
             segmentControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.SegmentControl.insets.right),
-            segmentControl.widthAnchor.constraint(equalToConstant: 150),
+
             segmentControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Layout.SegmentControl.insets.bottom),
-            
+
             lineView.bottomAnchor.constraint(equalTo: bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: Layout.LineView.height),
             lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.LineView.insets.left),
@@ -113,10 +113,21 @@ final class ImportanceView: UIView {
         ])
     }
     
-    // MARK: - Functions
+    // MARK: - Private Functions
     
     @objc private func segmentControlTapped(sender: UISegmentedControl) {
-        let segmentControlIndex = sender.selectedSegmentIndex
-        printDebug(segmentControlIndex)
+        var importance = ToDoItemImportance.usual
+
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            importance = .notImportant
+        case 1:
+            importance = .usual
+        case 2:
+            importance = .important
+        default:
+            importance = .usual
+        }
+        delegate?.importanceChosen(importance)
     }
 }

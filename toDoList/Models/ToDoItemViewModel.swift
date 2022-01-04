@@ -8,9 +8,7 @@
 import Foundation
 
 struct ToDoItemViewModel {
-
-    // MARK: - Properties
-
+    
     var id: String?
     var text: String?
     var importance: ToDoItemImportance?
