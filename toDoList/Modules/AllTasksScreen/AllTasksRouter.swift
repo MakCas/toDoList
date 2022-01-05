@@ -10,7 +10,7 @@ import UIKit
 protocol AllTasksRouterOutput: AnyObject {}
 
 final class AllTasksRouter {
-    
+
     weak var viewController: (UIViewController)?
 }
 
