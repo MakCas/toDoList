@@ -51,6 +51,7 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     // MARK: - UI
     
     private func configureUI() {
+        backgroundColor = .clear
         addSubviews()
         addConstraints()
     }

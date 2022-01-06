@@ -37,13 +37,15 @@ final class AppStartService {
     // MARK: - Private Functions
 
     private func configureNavBarAppearance() {
+        let appearance = UINavigationBarAppearance()
         if #available(iOS 15, *) {
-            let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
+            appearance.configureWithTransparentBackground()
             appearance.backgroundColor = .clear
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+
         }
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
 
     private func configureTableViewAppearance() {

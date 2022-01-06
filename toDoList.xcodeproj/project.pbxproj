@@ -25,6 +25,7 @@
 		CE4389DD2781981B00154DFB /* DeadLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389DC2781981B00154DFB /* DeadLineView.swift */; };
 		CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */; };
 		CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */; };
+		CEB828312787195F00373EDC /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB828302787195F00373EDC /* TaskCell.swift */; };
 		CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A5FE278028A9003503C1 /* Bundle.swift */; };
 		CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60027802986003503C1 /* UIImage+Images.swift */; };
 		CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60227802A3B003503C1 /* String+Strings.swift */; };
@@ -62,6 +63,7 @@
 		CE4389DC2781981B00154DFB /* DeadLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineView.swift; sourceTree = "<group>"; };
 		CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
+		CEB828302787195F00373EDC /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		CEC0A5FE278028A9003503C1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CEC0A60027802986003503C1 /* UIImage+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Images.swift"; sourceTree = "<group>"; };
 		CEC0A60227802A3B003503C1 /* String+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Strings.swift"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				CEF197A4278707FE009223E4 /* AllTasksHeaderView.swift */,
+				CEB828302787195F00373EDC /* TaskCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				CE159C1A27859E1E00FAB879 /* AllTasksController.swift in Sources */,
 				CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */,
 				CEE56A80278427F700218593 /* CreateTaskPresenter.swift in Sources */,
+				CEB828312787195F00373EDC /* TaskCell.swift in Sources */,
 				CEC0A60627803C0B003503C1 /* ToDoItem.swift in Sources */,
 				CEE56A82278429A000218593 /* CreateTaskBuilder.swift in Sources */,
 				CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */,

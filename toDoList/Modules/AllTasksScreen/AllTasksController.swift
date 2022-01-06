@@ -19,10 +19,11 @@ final class AllTasksController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let view = UITableView()
-        view.backgroundColor = .systemBackground
         view.delegate = self
         view.dataSource = self
+        view.backgroundColor = .clear
         view.registerHeaderClass(AllTasksHeaderView.self)
+        view.registerCellClass(TaskCell.self)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -69,8 +70,8 @@ final class AllTasksController: UIViewController {
     private func addConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -89,7 +90,7 @@ extension AllTasksController: UITableViewDelegate {
 extension AllTasksController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 10
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -102,7 +103,7 @@ extension AllTasksController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Test")
+        let cell: TaskCell? = tableView.dequeueCell(for: indexPath)
         return cell ?? UITableViewCell()
     }
 }
