@@ -140,7 +140,7 @@ final class DeadLineView: UIView {
     // MARK: - Public Functions
     
     func dateChosen(_ date: Date) {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.shared
         formatter.dateFormat = "d MMMM yyyy"
         let dateString = formatter.string(from: date)
         belowLabel.text = dateString

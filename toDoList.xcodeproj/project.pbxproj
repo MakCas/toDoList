@@ -26,6 +26,8 @@
 		CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */; };
 		CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */; };
 		CE7053D627871E09003868D0 /* CheckControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7053D527871E09003868D0 /* CheckControl.swift */; };
+		CE899EF9278757FE00F1FA0A /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE899EF8278757FE00F1FA0A /* TaskCellViewModel.swift */; };
+		CE899EFB278759C200F1FA0A /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE899EFA278759C200F1FA0A /* DateFormatter+.swift */; };
 		CEB828312787195F00373EDC /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB828302787195F00373EDC /* TaskCell.swift */; };
 		CEC0A5FF278028A9003503C1 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A5FE278028A9003503C1 /* Bundle.swift */; };
 		CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60027802986003503C1 /* UIImage+Images.swift */; };
@@ -65,6 +67,8 @@
 		CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 		CE5BD9DF2780815B00E8AA0F /* GeneralFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFunctions.swift; sourceTree = "<group>"; };
 		CE7053D527871E09003868D0 /* CheckControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckControl.swift; sourceTree = "<group>"; };
+		CE899EF8278757FE00F1FA0A /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
+		CE899EFA278759C200F1FA0A /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		CEB828302787195F00373EDC /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		CEC0A5FE278028A9003503C1 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CEC0A60027802986003503C1 /* UIImage+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Images.swift"; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 		CE159C1827859E0300FAB879 /* AllTasksScreen */ = {
 			isa = PBXGroup;
 			children = (
+				CE899EF7278757F100F1FA0A /* Models */,
 				CEF197A3278707E5009223E4 /* Views */,
 				CE159C1927859E1E00FAB879 /* AllTasksController.swift */,
 				CE159C1B27859E2C00FAB879 /* AllTasksPresenter.swift */,
@@ -188,10 +193,19 @@
 			path = CreateTaskScreen;
 			sourceTree = "<group>";
 		};
+		CE899EF7278757F100F1FA0A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE899EF8278757FE00F1FA0A /* TaskCellViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CEC0A5FD2780289A003503C1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CEC0A5FE278028A9003503C1 /* Bundle.swift */,
+				CE899EFA278759C200F1FA0A /* DateFormatter+.swift */,
 				CEF197AA27871286009223E4 /* UITableView+.swift */,
 				CEF197A827870BD3009223E4 /* UIView+.swift */,
 				CEC0A60027802986003503C1 /* UIImage+Images.swift */,
@@ -389,6 +403,8 @@
 				CE4389DD2781981B00154DFB /* DeadLineView.swift in Sources */,
 				CE09F0DE277F405600306207 /* SceneDelegate.swift in Sources */,
 				CEF197A5278707FE009223E4 /* AllTasksHeaderView.swift in Sources */,
+				CE899EFB278759C200F1FA0A /* DateFormatter+.swift in Sources */,
+				CE899EF9278757FE00F1FA0A /* TaskCellViewModel.swift in Sources */,
 				CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */,
 				CEF197A927870BD3009223E4 /* UIView+.swift in Sources */,
 				CEE56A8427842DB600218593 /* ToDoItemViewModel.swift in Sources */,

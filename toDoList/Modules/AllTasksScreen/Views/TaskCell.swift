@@ -7,7 +7,19 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+final class TaskCell: UITableViewCell {
+
+    enum TypeCell {
+        case first
+        case usual
+        case last
+    }
+
+    // MARK: - Layout and Constants
+
+    private enum Layout {
+
+    }
 
     // MARK: - Subviews
 
@@ -19,24 +31,30 @@ class TaskCell: UITableViewCell {
 
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
     private lazy var taskLabel: UILabel = {
         let label = UILabel()
+        label.text = "taskLabel"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
+        //        label.text = "deadLineLabel"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
 
     // MARK: - Properties
+
+    var typeCell: TypeCell?
 
 
     // MARK: - Init
@@ -59,6 +77,8 @@ class TaskCell: UITableViewCell {
     private func configureUI() {
         accessoryType = .disclosureIndicator
         backgroundColor = .white
+        layer.cornerRadius = 15
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         addSubviews()
         addConstraints()
@@ -66,35 +86,35 @@ class TaskCell: UITableViewCell {
 
     private func addSubviews() {
         contentView.addSubview(checkControl)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(taskLabel)
+        stackView.addArrangedSubview(deadLineLabel)
     }
 
     private func addConstraints() {
 
-        let heightConstraint = checkControl.heightAnchor.constraint(equalToConstant: 40)
+        let heightConstraint = checkControl.heightAnchor.constraint(equalToConstant: 20)
         heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
-            checkControl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             checkControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            checkControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
             heightConstraint,
-            checkControl.widthAnchor.constraint(equalToConstant: 40),
+            checkControl.widthAnchor.constraint(equalToConstant: 20),
+            checkControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            stackView.leadingAnchor.constraint(equalTo: checkControl.trailingAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
 
 
     // MARK: - Configure
 
-    func configureCell() {
+    func configureCellWith(model: Int) {
 
     }
 
     // MARK: - Functions
 
-
-    // MARK: - Layout and Constants
-
-    private enum Layout {
-
-    }
 }
