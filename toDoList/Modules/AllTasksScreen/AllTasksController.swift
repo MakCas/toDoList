@@ -17,6 +17,16 @@ final class AllTasksController: UIViewController {
 
     // MARK: - Subviews
 
+    private lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.backgroundColor = .systemBackground
+        view.delegate = self
+        view.dataSource = self
+        view.registerHeaderClass(AllTasksHeaderView.self)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     // MARK: - Properties
 
     private var presenter: AllTasksViewOutput
@@ -44,13 +54,60 @@ final class AllTasksController: UIViewController {
 
     // MARK: - UI
 
-
     private func configureUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .backGroundColor
+        navigationItem.title = "Мои дела"
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        addSubviews()
+        addConstraints()
+    }
+
+    private func addSubviews() {
+        view.addSubview(tableView)
+    }
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 
     // MARK: - Private Functions
 }
+
+// MARK: - UITableViewDelegate
+
+extension AllTasksController: UITableViewDelegate {
+
+}
+
+// MARK: - UITableViewDataSource
+
+extension AllTasksController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = AllTasksHeaderView()
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Test")
+        return cell ?? UITableViewCell()
+    }
+}
+
+// MARK: - AllTasksViewInput
 
 extension AllTasksController: AllTasksViewInput {
 

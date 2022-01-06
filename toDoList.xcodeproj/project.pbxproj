@@ -35,6 +35,9 @@
 		CEE56A80278427F700218593 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE56A7F278427F700218593 /* CreateTaskPresenter.swift */; };
 		CEE56A82278429A000218593 /* CreateTaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE56A81278429A000218593 /* CreateTaskBuilder.swift */; };
 		CEE56A8427842DB600218593 /* ToDoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE56A8327842DB600218593 /* ToDoItemViewModel.swift */; };
+		CEF197A5278707FE009223E4 /* AllTasksHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF197A4278707FE009223E4 /* AllTasksHeaderView.swift */; };
+		CEF197A927870BD3009223E4 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF197A827870BD3009223E4 /* UIView+.swift */; };
+		CEF197AB27871286009223E4 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF197AA27871286009223E4 /* UITableView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +73,9 @@
 		CEE56A7F278427F700218593 /* CreateTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskPresenter.swift; sourceTree = "<group>"; };
 		CEE56A81278429A000218593 /* CreateTaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskBuilder.swift; sourceTree = "<group>"; };
 		CEE56A8327842DB600218593 /* ToDoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemViewModel.swift; sourceTree = "<group>"; };
+		CEF197A4278707FE009223E4 /* AllTasksHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksHeaderView.swift; sourceTree = "<group>"; };
+		CEF197A827870BD3009223E4 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		CEF197AA27871286009223E4 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,7 @@
 		CE159C1827859E0300FAB879 /* AllTasksScreen */ = {
 			isa = PBXGroup;
 			children = (
+				CEF197A3278707E5009223E4 /* Views */,
 				CE159C1927859E1E00FAB879 /* AllTasksController.swift */,
 				CE159C1B27859E2C00FAB879 /* AllTasksPresenter.swift */,
 				CE159C1D27859E3700FAB879 /* AllTasksBuilder.swift */,
@@ -181,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				CEC0A5FE278028A9003503C1 /* Bundle.swift */,
+				CEF197AA27871286009223E4 /* UITableView+.swift */,
+				CEF197A827870BD3009223E4 /* UIView+.swift */,
 				CEC0A60027802986003503C1 /* UIImage+Images.swift */,
 				CEC0A60227802A3B003503C1 /* String+Strings.swift */,
 				CE4389D627818C4E00154DFB /* UIColor+.swift */,
@@ -214,6 +223,14 @@
 				CED5D7762782C5D800B96017 /* Localizable.strings */,
 			);
 			path = Localize;
+			sourceTree = "<group>";
+		};
+		CEF197A3278707E5009223E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEF197A4278707FE009223E4 /* AllTasksHeaderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		ECC5F2A582EF540489CE53AD /* Pods */ = {
@@ -345,6 +362,7 @@
 				CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */,
 				CE159C1C27859E2C00FAB879 /* AllTasksPresenter.swift in Sources */,
 				CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */,
+				CEF197AB27871286009223E4 /* UITableView+.swift in Sources */,
 				CE159C1A27859E1E00FAB879 /* AllTasksController.swift in Sources */,
 				CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */,
 				CEE56A80278427F700218593 /* CreateTaskPresenter.swift in Sources */,
@@ -362,7 +380,9 @@
 				CEC0A609278064EB003503C1 /* FileCache.swift in Sources */,
 				CE4389DD2781981B00154DFB /* DeadLineView.swift in Sources */,
 				CE09F0DE277F405600306207 /* SceneDelegate.swift in Sources */,
+				CEF197A5278707FE009223E4 /* AllTasksHeaderView.swift in Sources */,
 				CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */,
+				CEF197A927870BD3009223E4 /* UIView+.swift in Sources */,
 				CEE56A8427842DB600218593 /* ToDoItemViewModel.swift in Sources */,
 				CE159C2027859F9800FAB879 /* AllTasksRouter.swift in Sources */,
 			);
