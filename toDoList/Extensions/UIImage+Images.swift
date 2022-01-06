@@ -9,9 +9,9 @@ import UIKit
 
 extension UIImage {
 
-    enum ViewController {
-        static var appIcon: UIImage {
-            guard let image = Bundle.main.appIcon else {
+    enum AllTasksController {
+        static var checkControl: UIImage {
+            guard let image = UIImage(systemName: "checkmark.circle") else {
                 return UIImage()
             }
             return image

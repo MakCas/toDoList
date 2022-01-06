@@ -11,8 +11,8 @@ class TaskCell: UITableViewCell {
 
     // MARK: - Subviews
 
-    private lazy var checkControl: UIControl = {
-        let view = UIControl()
+    private lazy var checkControl: CheckControl = {
+        let view = CheckControl()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -58,7 +58,28 @@ class TaskCell: UITableViewCell {
 
     private func configureUI() {
         accessoryType = .disclosureIndicator
-        contentView.backgroundColor = .white
+        backgroundColor = .white
+
+        addSubviews()
+        addConstraints()
+    }
+
+    private func addSubviews() {
+        contentView.addSubview(checkControl)
+    }
+
+    private func addConstraints() {
+
+        let heightConstraint = checkControl.heightAnchor.constraint(equalToConstant: 40)
+        heightConstraint.priority = .defaultHigh
+
+        NSLayoutConstraint.activate([
+            checkControl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            checkControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            checkControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            heightConstraint,
+            checkControl.widthAnchor.constraint(equalToConstant: 40),
+        ])
     }
 
 
