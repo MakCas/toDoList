@@ -25,8 +25,8 @@ enum ToDoItemFactory {
         return range.map { int in
             ToDoItem(
                 id: "\(int)",
-                text: String(repeating: "фытволыфраоытавфыолваыв", count: 10),
-                importance: .usual,
+                text: String(repeating: "фыт", count: 1),
+                importance: .important,
                 deadLine: Date()
             )
         }
