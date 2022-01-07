@@ -27,15 +27,21 @@ protocol CreteTaskViewOutput: AnyObject {
 // MARK: - Class
 
 final class CreteTaskPresenter {
-
+    
     // MARK: - Properties
-
+    
     weak var viewInput: (UIViewController & CreteTaskViewInput)?
     private var toDoItem: ToDoItem?
     private var toDoItemViewModel = ToDoItemViewModel()
     
+    // MARK: - Init
+    
+    init(toDoItem: ToDoItem?) {
+        self.toDoItem = toDoItem
+    }
+    
     // MARK: - Private Functions
-
+    
     private func makeSaveButtonEnabledIfNeeded() {
         guard
             !toDoItemViewModel.text.isNilOrEmpty,
@@ -51,17 +57,17 @@ final class CreteTaskPresenter {
 // MARK: - ChatViewOutput
 
 extension CreteTaskPresenter: CreteTaskViewOutput {
-
+    
     func textViewDidChange(with text: String) {
         toDoItemViewModel.text = text
         makeSaveButtonEnabledIfNeeded()
     }
-
+    
     func importanceChosen(_ importance: ToDoItemImportance) {
         toDoItemViewModel.importance = importance
         makeSaveButtonEnabledIfNeeded()
     }
-
+    
     func deadLineSwitchChanged(isOn: Bool) {
         if isOn {
             let date = Date()
@@ -72,12 +78,12 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
             viewInput?.hideDatePicker()
         }
     }
-
+    
     func datePickerTapped(for date: Date) {
         toDoItemViewModel.deadLine = date
         viewInput?.showDateInLabel(date)
     }
-
+    
     func saveButtonTapped() {
         guard
             let text = toDoItemViewModel.text,

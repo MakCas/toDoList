@@ -31,6 +31,7 @@ final class AllTasksController: UIViewController {
 
     private lazy var addTaskControl: AddTaskControl = {
         let control = AddTaskControl()
+        control.addTarget(self, action: #selector(addTaskControlTapped), for: .touchUpInside)
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
@@ -91,6 +92,10 @@ final class AllTasksController: UIViewController {
     }
 
     // MARK: - Private Functions
+
+    @objc private func addTaskControlTapped() {
+        presenter.addTaskControlTapped()
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -141,10 +146,16 @@ extension AllTasksController: UITableViewDataSource {
 
 extension AllTasksController: AllTasksViewInput {
 
+    func goToCreateTaskController(for toDoItem: ToDoItem?) {
+        router.goToCreateTaskController(for: toDoItem)
+    }
+
     func updateTableView() {
         tableView.reloadData()
     }
 }
+
+// MARK: - TaskCellDelegate
 
 extension AllTasksController: TaskCellDelegate {
 
@@ -152,6 +163,8 @@ extension AllTasksController: TaskCellDelegate {
         presenter.statusChangedFor(taskID: taskID, to: status)
     }
 }
+
+// MARK: - AllTasksHeaderViewDelegate
 
 extension AllTasksController: AllTasksHeaderViewDelegate {
 

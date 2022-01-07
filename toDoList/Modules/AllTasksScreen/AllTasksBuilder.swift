@@ -13,6 +13,7 @@ enum AllTasksBuilder {
         let presenter = AllTasksPresenter()
         let router = AllTasksRouter()
         let viewController = AllTasksController(presenter: presenter, router: router)
+        router.viewController = viewController
         presenter.viewInput = viewController
         return viewController
     }

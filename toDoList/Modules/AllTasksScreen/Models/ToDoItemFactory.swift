@@ -8,7 +8,7 @@
 import Foundation
 
 enum ToDoItemFactory {
-    
+
     static func buildOneItem() -> [ToDoItem] {
         return [
             ToDoItem(
@@ -19,14 +19,14 @@ enum ToDoItemFactory {
             )
         ]
     }
-    
+
     static func buildItems() -> [ToDoItem] {
         let range = 1...7
         return range.map { int in
             ToDoItem(
                 id: "\(int)",
                 text: String(repeating: "фыт", count: 1),
-                importance: .important,
+                importance: .usual,
                 deadLine: Date()
             )
         }

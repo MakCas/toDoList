@@ -9,9 +9,9 @@ import UIKit
 
 enum CreateTaskBuilder {
     
-    static func build() -> (UIViewController & CreteTaskViewInput) {
+    static func build(with toDoItem: ToDoItem?) -> (UIViewController & CreteTaskViewInput) {
         
-        let presenter = CreteTaskPresenter()
+        let presenter = CreteTaskPresenter(toDoItem: toDoItem)
         let viewController = CreateTaskController(presenter: presenter)
         presenter.viewInput = viewController
         return viewController

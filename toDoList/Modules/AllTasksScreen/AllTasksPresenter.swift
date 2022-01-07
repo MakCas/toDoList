@@ -11,6 +11,7 @@ import UIKit
 
 protocol AllTasksViewInput: AnyObject {
     func updateTableView()
+    func goToCreateTaskController(for toDoItem: ToDoItem?)
 }
 
 protocol AllTasksViewOutput: AnyObject {
@@ -20,6 +21,7 @@ protocol AllTasksViewOutput: AnyObject {
     func viewDidLoad()
     func statusChangedFor(taskID: String, to status: Bool)
     func showDoneTasksButton(isSelected: Bool)
+    func addTaskControlTapped()
 }
 
 // MARK: - Class
@@ -34,14 +36,16 @@ final class AllTasksPresenter {
     private(set) var allOrDoneTaskCellViewModels = [TaskCellViewModel]()
     private(set) var showDoneTasksIsSelected = true
 
-    private let fileCacheService: FileCacheProtocol = FileCache(fileName: ToDoItemFileNames.allToDoItems)
-
     // MARK: - Private Functions
 }
 
 // MARK: - ChatViewOutput
 
 extension AllTasksPresenter: AllTasksViewOutput {
+
+    func addTaskControlTapped() {
+        viewInput?.goToCreateTaskController(for: nil)
+    }
 
     func showDoneTasksButton(isSelected: Bool) {
         showDoneTasksIsSelected = isSelected
