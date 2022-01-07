@@ -112,6 +112,11 @@ extension AllTasksController: UITableViewDataSource {
         return presenter.allOrDoneTaskCellViewModels.count
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.taskCellTapped(for: indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
         let doneTasks = presenter.allTaskCellViewModels.map { $0.isDone }.filter { $0 == true }

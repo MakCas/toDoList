@@ -14,6 +14,17 @@ enum ToDoItemImportance: String {
     case notImportant
     case usual
     case important
+
+    var index: Int {
+        switch self {
+        case .notImportant:
+            return 0
+        case .usual:
+            return 1
+        case .important:
+            return 2
+        }
+    }
 }
 
 struct ToDoItem {

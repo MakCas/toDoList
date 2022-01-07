@@ -192,6 +192,7 @@ final class CreateTaskController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         addScrollViewGesture()
         configureUI()
         addObservers()
@@ -318,7 +319,18 @@ extension CreateTaskController: DeadLineViewDelegate {
 // MARK: - CreteTaskViewInput
 
 extension CreateTaskController: CreteTaskViewInput {
-    
+
+    func configureUIWith(toDoItem: ToDoItemViewModel) {
+        taskTextView.text = toDoItem.text
+        importanceView.setSegmentControl(for: toDoItem.importance)
+
+        guard let date = toDoItem.deadLine else { return }
+        calendarDatePicker.isHidden = false
+        deadLineView.makeLayoutForSwitcherIsON(for: date)
+        calendarDatePicker.setDate(date, animated: false)
+        deadLineView.makeSwitcherOn()
+    }
+
     func makeSaveButton(enable: Bool) {
         saveButton.isEnabled = enable
     }

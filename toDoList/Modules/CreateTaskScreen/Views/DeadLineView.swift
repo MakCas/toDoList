@@ -134,7 +134,6 @@ final class DeadLineView: UIView {
     
     @objc private func switcherChanged(_ sender: UISwitch) {
         delegate?.deadLineSwitchChanged(isOn: sender.isOn)
-        
     }
     
     // MARK: - Public Functions
@@ -150,6 +149,10 @@ final class DeadLineView: UIView {
         lineView.isHidden = true
         belowLabel.isHidden = false
         dateChosen(date)
+    }
+
+    func makeSwitcherOn() {
+        switcher.isOn = true
     }
     
     func makeLayoutForSwitcherIsOff() {

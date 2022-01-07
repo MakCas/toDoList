@@ -22,6 +22,7 @@ protocol AllTasksViewOutput: AnyObject {
     func statusChangedFor(taskID: String, to status: Bool)
     func showDoneTasksButton(isSelected: Bool)
     func addTaskControlTapped()
+    func taskCellTapped(for indexPathRow: Int)
 }
 
 // MARK: - Class
@@ -42,6 +43,20 @@ final class AllTasksPresenter {
 // MARK: - ChatViewOutput
 
 extension AllTasksPresenter: AllTasksViewOutput {
+
+    func taskCellTapped(for indexPathRow: Int) {
+        let tappedModel = allTaskCellViewModels[indexPathRow]
+
+        let toDoItem = ToDoItem(
+            id: tappedModel.id,
+            text: tappedModel.itemText.string,
+            importance: tappedModel.itemImportance,
+            deadLine: tappedModel.deadLine,
+            isDone: tappedModel.isDone
+        )
+
+        viewInput?.goToCreateTaskController(for: toDoItem)
+    }
 
     func addTaskControlTapped() {
         viewInput?.goToCreateTaskController(for: nil)

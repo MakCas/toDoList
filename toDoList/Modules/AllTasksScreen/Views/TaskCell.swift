@@ -124,7 +124,7 @@ final class TaskCell: UITableViewCell {
     func configureCellWith(model: TaskCellViewModel, typeCell: TypeCell) {
         taskCellViewModel = model
         taskLabel.attributedText = model.itemText
-        deadLineLabel.attributedText = model.deadLine
+        deadLineLabel.attributedText = model.deadLineWithCalendar
         if model.itemImportance == .important {
             checkControl.changeCircleImageColorToRed(true)
         } else {

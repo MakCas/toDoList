@@ -130,4 +130,10 @@ final class ImportanceView: UIView {
         }
         delegate?.importanceChosen(importance)
     }
+
+    // MARK: - Public Functions
+
+    func setSegmentControl(for importance: ToDoItemImportance) {
+        segmentControl.selectedSegmentIndex = importance.index
+    }
 }

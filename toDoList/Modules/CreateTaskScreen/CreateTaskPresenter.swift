@@ -14,9 +14,11 @@ protocol CreteTaskViewInput: AnyObject {
     func hideDatePicker()
     func showDateInLabel(_ date: Date)
     func makeSaveButton(enable: Bool)
+    func configureUIWith(toDoItem: ToDoItemViewModel)
 }
 
 protocol CreteTaskViewOutput: AnyObject {
+    func viewDidLoad()
     func textViewDidChange(with text: String)
     func importanceChosen(_ importance: ToDoItemImportance)
     func deadLineSwitchChanged(isOn: Bool)
@@ -27,21 +29,21 @@ protocol CreteTaskViewOutput: AnyObject {
 // MARK: - Class
 
 final class CreteTaskPresenter {
-    
+
     // MARK: - Properties
-    
+
     weak var viewInput: (UIViewController & CreteTaskViewInput)?
     private var toDoItem: ToDoItem?
     private var toDoItemViewModel = ToDoItemViewModel()
-    
+
     // MARK: - Init
-    
+
     init(toDoItem: ToDoItem?) {
         self.toDoItem = toDoItem
     }
     
     // MARK: - Private Functions
-    
+
     private func makeSaveButtonEnabledIfNeeded() {
         guard
             !toDoItemViewModel.text.isNilOrEmpty,
@@ -57,17 +59,26 @@ final class CreteTaskPresenter {
 // MARK: - ChatViewOutput
 
 extension CreteTaskPresenter: CreteTaskViewOutput {
-    
+
+    func viewDidLoad() {
+        if let toDoItem = toDoItem {
+            toDoItemViewModel = ToDoItemViewModel(from: toDoItem)
+            viewInput?.configureUIWith(toDoItem: toDoItemViewModel)
+        } else {
+            toDoItemViewModel = ToDoItemViewModel()
+        }
+    }
+
     func textViewDidChange(with text: String) {
         toDoItemViewModel.text = text
         makeSaveButtonEnabledIfNeeded()
     }
-    
+
     func importanceChosen(_ importance: ToDoItemImportance) {
         toDoItemViewModel.importance = importance
         makeSaveButtonEnabledIfNeeded()
     }
-    
+
     func deadLineSwitchChanged(isOn: Bool) {
         if isOn {
             let date = Date()
@@ -78,20 +89,19 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
             viewInput?.hideDatePicker()
         }
     }
-    
+
     func datePickerTapped(for date: Date) {
         toDoItemViewModel.deadLine = date
         viewInput?.showDateInLabel(date)
     }
-    
+
     func saveButtonTapped() {
         guard
-            let text = toDoItemViewModel.text,
-            let importance = toDoItemViewModel.importance
+            let text = toDoItemViewModel.text
         else {
             return
         }
-        let toDoItem = ToDoItem(text: text, importance: importance, deadLine: toDoItemViewModel.deadLine)
+        let toDoItem = ToDoItem(text: text, importance: toDoItemViewModel.importance, deadLine: toDoItemViewModel.deadLine)
         printDebug(toDoItem)
         return
     }

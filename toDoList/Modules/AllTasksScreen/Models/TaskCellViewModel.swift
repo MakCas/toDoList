@@ -12,7 +12,8 @@ struct TaskCellViewModel {
     var id: String
     var itemText: NSMutableAttributedString
     var itemImportance: ToDoItemImportance
-    var deadLine: NSMutableAttributedString?
+    var deadLine: Date?
+    var deadLineWithCalendar: NSMutableAttributedString?
     var isDone: Bool {
         didSet {
             itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: itemText, isDone: isDone)
@@ -25,13 +26,14 @@ struct TaskCellViewModel {
         self.id = item.id
         self.itemImportance = item.importance
         self.isDone = item.isDone
+        self.deadLine = item.deadLine
 
         let textMutableString = TaskCellViewModel.getImportantTextIfNeeded(for: item.text, importance: item.importance)
         itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: textMutableString, isDone: item.isDone)
 
         guard let deadLine = item.deadLine else { return }
         let dateString = TaskCellViewModel.transferDateToString(from: deadLine)
-        self.deadLine = TaskCellViewModel.addCalendarImage(for: dateString)
+        self.deadLineWithCalendar = TaskCellViewModel.addCalendarImage(for: dateString)
     }
 
     // MARK: - Helpers for Init
