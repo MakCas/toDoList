@@ -7,13 +7,15 @@
 
 import UIKit
 
+enum TypeCell {
+    case first
+    case withoutCorners
+    case willAllCorners
+    case last
+}
+
 final class TaskCell: UITableViewCell {
 
-    enum TypeCell {
-        case first
-        case usual
-        case last
-    }
 
     // MARK: - Layout and Constants
 
@@ -40,6 +42,7 @@ final class TaskCell: UITableViewCell {
     private lazy var taskLabel: UILabel = {
         let label = UILabel()
         label.text = "taskLabel"
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +57,8 @@ final class TaskCell: UITableViewCell {
 
     // MARK: - Properties
 
-    var typeCell: TypeCell?
+    private var typeCell: TypeCell?
+    private var taskCellViewModel: TaskCellViewModel?
 
 
     // MARK: - Init
@@ -78,7 +82,6 @@ final class TaskCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         backgroundColor = .white
         layer.cornerRadius = 15
-        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
         addSubviews()
         addConstraints()
@@ -108,11 +111,23 @@ final class TaskCell: UITableViewCell {
         ])
     }
 
-
     // MARK: - Configure
 
-    func configureCellWith(model: Int) {
+    func configureCellWith(model: TaskCellViewModel, typeCell: TypeCell) {
+        taskCellViewModel = model
+        taskLabel.text = model.itemText
+        deadLineLabel.text = model.deadLine
 
+        switch typeCell {
+        case .first:
+            layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        case .withoutCorners:
+            layer.maskedCorners = []
+        case .last:
+            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        case .willAllCorners:
+            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner]
+        }
     }
 
     // MARK: - Functions
