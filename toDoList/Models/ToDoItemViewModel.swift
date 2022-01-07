@@ -13,5 +13,4 @@ struct ToDoItemViewModel {
     var text: String?
     var importance: ToDoItemImportance?
     var deadLine: Date?
-    var isDone = false
 }

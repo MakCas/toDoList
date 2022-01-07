@@ -8,15 +8,15 @@
 import UIKit
 
 final class AllTasksController: UIViewController {
-    
+
     // MARK: - Layout
-    
+
     enum Layout {
-        
+
     }
-    
+
     // MARK: - Subviews
-    
+
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.delegate = self
@@ -28,44 +28,44 @@ final class AllTasksController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     // MARK: - Properties
-    
+
     private var presenter: AllTasksViewOutput
     private var router: AllTasksRouterOutput
-    
+
     // MARK: - Init
-    
+
     init(presenter: AllTasksViewOutput, router: AllTasksRouterOutput) {
         self.presenter = presenter
         self.router = router
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         presenter.viewDidLoad()
         configureUI()
     }
-    
+
     // MARK: - UI
-    
+
     private func configureUI() {
         view.backgroundColor = .backGroundColor
         navigationItem.title = "Мои дела"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+
         addSubviews()
         addConstraints()
     }
-    
+
     private func addSubviews() {
         view.addSubview(tableView)
     }
@@ -77,33 +77,33 @@ final class AllTasksController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
+
     // MARK: - Private Functions
 }
 
 // MARK: - UITableViewDelegate
 
 extension AllTasksController: UITableViewDelegate {
-    
+
 }
 
 // MARK: - UITableViewDataSource
 
 extension AllTasksController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.taskCellViewModels.count
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
         return view
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TaskCell? = tableView.dequeueCell(for: indexPath)
         var typeCell = TypeCell.withoutCorners
@@ -123,5 +123,5 @@ extension AllTasksController: UITableViewDataSource {
 // MARK: - AllTasksViewInput
 
 extension AllTasksController: AllTasksViewInput {
-    
+
 }

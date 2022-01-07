@@ -24,6 +24,7 @@ struct ToDoItem {
     let text: String
     let importance: ToDoItemImportance
     let deadLine: Date?
+    let isDone: Bool
     
     // MARK: - Init
     
@@ -31,12 +32,14 @@ struct ToDoItem {
         id: String = UUID().uuidString,
         text: String,
         importance: ToDoItemImportance,
-        deadLine: Date? = nil
+        deadLine: Date? = nil,
+        isDone: Bool = false
     ) {
         self.id = id
         self.text = text
         self.importance = importance
         self.deadLine = deadLine
+        self.isDone = isDone
     }
 }
 

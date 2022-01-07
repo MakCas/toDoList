@@ -8,23 +8,53 @@
 import UIKit
 
 struct TaskCellViewModel {
+    
     var id: String
-    var itemText: String
+    var itemText: NSMutableAttributedString
     var itemImportance: ToDoItemImportance
-    var deadLine: String?
-
+    var deadLine: NSMutableAttributedString?
+    var isDone: Bool
+    
+    // MARK: - Init
+    
     init(from item: ToDoItem) {
         self.id = item.id
-        self.itemText = item.text
         self.itemImportance = item.importance
+        isDone = item.isDone
+        itemText = TaskCellViewModel.setItemText(from: item)
+        
         guard let deadLine = item.deadLine else { return }
-        self.deadLine = transferDateToString(from: deadLine)
+        let dateString = TaskCellViewModel.transferDateToString(from: deadLine)
+        self.deadLine = TaskCellViewModel.transferStringToNSStringWithImage(for: dateString)
     }
-
-    private func transferDateToString(from date: Date) -> String {
+    
+    // MARK: - Helpers for Init
+    
+    private static func setItemText(from item: ToDoItem) -> NSMutableAttributedString {
+        let fullString = NSMutableAttributedString(string: item.text)
+        if item.isDone {
+            fullString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: fullString.length))
+        }
+        return fullString
+    }
+    
+    private static func transferDateToString(from date: Date) -> String {
         let formatter = DateFormatter.shared
         formatter.dateFormat = "d MMMM"
         let dateString = formatter.string(from: date)
         return dateString
+    }
+    
+    private static func transferStringToNSStringWithImage(for string: String) -> NSMutableAttributedString {
+        let fullString = NSMutableAttributedString(string: "")
+        
+        let imageCalendarAttachment = NSTextAttachment()
+        imageCalendarAttachment.image = UIImage(named: "calendar")
+        let imageString = NSAttributedString(attachment: imageCalendarAttachment)
+        
+        fullString.append(imageString)
+        fullString.append(NSAttributedString(string: " " + string))
+        
+        return fullString
     }
 }

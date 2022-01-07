@@ -49,7 +49,6 @@ final class TaskCell: UITableViewCell {
 
     private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        //        label.text = "deadLineLabel"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -115,8 +114,8 @@ final class TaskCell: UITableViewCell {
 
     func configureCellWith(model: TaskCellViewModel, typeCell: TypeCell) {
         taskCellViewModel = model
-        taskLabel.text = model.itemText
-        deadLineLabel.text = model.deadLine
+        taskLabel.attributedText = model.itemText
+        deadLineLabel.attributedText = model.deadLine
 
         switch typeCell {
         case .first:
