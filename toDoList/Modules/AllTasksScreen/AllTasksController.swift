@@ -29,6 +29,12 @@ final class AllTasksController: UIViewController {
         return view
     }()
 
+    private lazy var addTaskControl: AddTaskControl = {
+        let control = AddTaskControl()
+        control.translatesAutoresizingMaskIntoConstraints = false
+        return control
+    }()
+
     // MARK: - Properties
 
     private var presenter: AllTasksViewOutput
@@ -68,13 +74,19 @@ final class AllTasksController: UIViewController {
 
     private func addSubviews() {
         view.addSubview(tableView)
+        view.addSubview(addTaskControl)
     }
     private func addConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            addTaskControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
+            addTaskControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addTaskControl.heightAnchor.constraint(equalToConstant: 60),
+            addTaskControl.widthAnchor.constraint(equalToConstant: 60)
         ])
     }
 
