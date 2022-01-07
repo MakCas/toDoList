@@ -13,7 +13,12 @@ struct TaskCellViewModel {
     var itemText: NSMutableAttributedString
     var itemImportance: ToDoItemImportance
     var deadLine: NSMutableAttributedString?
-    var isDone: Bool
+    var isDone: Bool {
+        didSet {
+            let string = itemText.string
+            itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: string, isDone: isDone)
+        }
+    }
     
     // MARK: - Init
     
@@ -21,7 +26,7 @@ struct TaskCellViewModel {
         self.id = item.id
         self.itemImportance = item.importance
         isDone = item.isDone
-        itemText = TaskCellViewModel.setItemText(from: item)
+        itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: item.text, isDone: item.isDone)
         
         guard let deadLine = item.deadLine else { return }
         let dateString = TaskCellViewModel.transferDateToString(from: deadLine)
@@ -30,9 +35,9 @@ struct TaskCellViewModel {
     
     // MARK: - Helpers for Init
     
-    private static func setItemText(from item: ToDoItem) -> NSMutableAttributedString {
-        let fullString = NSMutableAttributedString(string: item.text)
-        if item.isDone {
+    private static func getStrikeThroughTextIfNeeded(for string: String, isDone: Bool) -> NSMutableAttributedString {
+        let fullString = NSMutableAttributedString(string: string)
+        if isDone {
             fullString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: fullString.length))
         }
         return fullString

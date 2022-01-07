@@ -21,7 +21,7 @@ enum ToDoItemFactory {
     }
 
     static func buildItems() -> [ToDoItem] {
-        let range = 1...2
+        let range = 1...20
         return range.map { int in
             ToDoItem(
                 id: "\(int)",

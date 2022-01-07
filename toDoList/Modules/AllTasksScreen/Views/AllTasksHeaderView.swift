@@ -22,19 +22,24 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     private lazy var doneLabel: UILabel = {
         let label = UILabel()
-        label.text = "TestLabel"
+        label.text = "Выполнено - \(numberDoneTasks)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var showHideButton: UIButton = {
         let button = UIButton()
-        button.setTitle("TestButton", for: .normal)
+        button.setTitle("Показать", for: .normal)
+        button.setTitle("Скрыть", for: .selected)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
+    // MARK: - Properties
+
+    private var numberDoneTasks = 0
     
     // MARK: - Init
     
@@ -69,5 +74,11 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
             showHideButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             showHideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
+    }
+
+    // MARK: - Public Functions
+
+    func setNumberDoneTasks(_ number: Int) {
+        numberDoneTasks = number
     }
 }

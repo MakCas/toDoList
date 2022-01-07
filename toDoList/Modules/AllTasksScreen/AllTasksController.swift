@@ -97,6 +97,8 @@ extension AllTasksController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
+        let doneTasks = presenter.taskCellViewModels.map { $0.isDone }.filter { $0 == true }
+        view.setNumberDoneTasks(doneTasks.count)
         return view
     }
 
@@ -116,6 +118,7 @@ extension AllTasksController: UITableViewDataSource {
         }
         let model = presenter.taskCellViewModels[indexPath.row]
         cell?.configureCellWith(model: model, typeCell: typeCell)
+        cell?.delegate = self
         return cell ?? UITableViewCell()
     }
 }
@@ -124,4 +127,14 @@ extension AllTasksController: UITableViewDataSource {
 
 extension AllTasksController: AllTasksViewInput {
 
+    func updateTableView() {
+        tableView.reloadData()
+    }
+}
+
+extension AllTasksController: TaskCellDelegate {
+
+    func statusChangedFor(taskID: String, to status: Bool) {
+        presenter.statusChangedFor(taskID: taskID, to: status)
+    }
 }

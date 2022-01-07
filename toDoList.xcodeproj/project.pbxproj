@@ -18,6 +18,7 @@
 		CE159C1E27859E3700FAB879 /* AllTasksBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE159C1D27859E3700FAB879 /* AllTasksBuilder.swift */; };
 		CE159C2027859F9800FAB879 /* AllTasksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE159C1F27859F9800FAB879 /* AllTasksRouter.swift */; };
 		CE159C222785A19500FAB879 /* AppStartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE159C212785A19500FAB879 /* AppStartService.swift */; };
+		CE3737D427880300002A8AA5 /* NSMutableString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3737D327880300002A8AA5 /* NSMutableString+.swift */; };
 		CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D427817B7300154DFB /* ImportanceView.swift */; };
 		CE4389D727818C4E00154DFB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D627818C4E00154DFB /* UIColor+.swift */; };
 		CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */; };
@@ -61,6 +62,7 @@
 		CE159C1D27859E3700FAB879 /* AllTasksBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksBuilder.swift; sourceTree = "<group>"; };
 		CE159C1F27859F9800FAB879 /* AllTasksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksRouter.swift; sourceTree = "<group>"; };
 		CE159C212785A19500FAB879 /* AppStartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartService.swift; sourceTree = "<group>"; };
+		CE3737D327880300002A8AA5 /* NSMutableString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+.swift"; sourceTree = "<group>"; };
 		CE4389D427817B7300154DFB /* ImportanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceView.swift; sourceTree = "<group>"; };
 		CE4389D627818C4E00154DFB /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		CE4389D827818E0B00154DFB /* TextViewWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithPlaceholder.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC0A5FE278028A9003503C1 /* Bundle.swift */,
+				CE3737D327880300002A8AA5 /* NSMutableString+.swift */,
 				CE899EFA278759C200F1FA0A /* DateFormatter+.swift */,
 				CEF197AA27871286009223E4 /* UITableView+.swift */,
 				CEF197A827870BD3009223E4 /* UIView+.swift */,
@@ -388,6 +391,7 @@
 				CE09F0E0277F405600306207 /* CreateTaskController.swift in Sources */,
 				CE159C1C27859E2C00FAB879 /* AllTasksPresenter.swift in Sources */,
 				CE4389D927818E0B00154DFB /* TextViewWithPlaceholder.swift in Sources */,
+				CE3737D427880300002A8AA5 /* NSMutableString+.swift in Sources */,
 				CEF197AB27871286009223E4 /* UITableView+.swift in Sources */,
 				CE7053D627871E09003868D0 /* CheckControl.swift in Sources */,
 				CE159C1A27859E1E00FAB879 /* AllTasksController.swift in Sources */,
