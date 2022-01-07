@@ -125,6 +125,11 @@ final class TaskCell: UITableViewCell {
         taskCellViewModel = model
         taskLabel.attributedText = model.itemText
         deadLineLabel.attributedText = model.deadLine
+        if model.itemImportance == .important {
+            checkControl.changeCircleImageColorToRed(true)
+        } else {
+            checkControl.changeCircleImageColorToRed(false)
+        }
         checkControl.isSelected = model.isDone
         setMaskedCorners(for: typeCell)
     }
