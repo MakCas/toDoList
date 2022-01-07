@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol AllTasksHeaderViewDelegate: AnyObject {
+    
+    func showDoneTasksButton(isSelected: Bool)
+}
+
 class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Layout
@@ -22,7 +27,6 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     private lazy var doneLabel: UILabel = {
         let label = UILabel()
-        label.text = "Выполнено - \(numberDoneTasks)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,13 +37,14 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
         button.setTitle("Скрыть", for: .selected)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
+        button.addTarget(self, action: #selector(showHideButtonTapped(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     // MARK: - Properties
-
-    private var numberDoneTasks = 0
+    
+    weak var delegate: AllTasksHeaderViewDelegate?
     
     // MARK: - Init
     
@@ -75,10 +80,18 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
             showHideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }
-
+    
     // MARK: - Public Functions
-
+    
+    @objc private func showHideButtonTapped(sender: UIButton) {
+        delegate?.showDoneTasksButton(isSelected: !sender.isSelected)
+    }
+    
     func setNumberDoneTasks(_ number: Int) {
-        numberDoneTasks = number
+        doneLabel.text = "Выполнено - \(number)"
+    }
+    
+    func changeHideDoneTasksStatus(for isSelected: Bool) {
+        showHideButton.isSelected = isSelected
     }
 }

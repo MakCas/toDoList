@@ -14,9 +14,12 @@ protocol AllTasksViewInput: AnyObject {
 }
 
 protocol AllTasksViewOutput: AnyObject {
-    var taskCellViewModels: [TaskCellViewModel] { get }
+    var allTaskCellViewModels: [TaskCellViewModel] { get }
+    var allOrDoneTaskCellViewModels: [TaskCellViewModel] { get }
+    var showDoneTasksIsSelected: Bool { get }
     func viewDidLoad()
     func statusChangedFor(taskID: String, to status: Bool)
+    func showDoneTasksButton(isSelected: Bool)
 }
 
 // MARK: - Class
@@ -27,7 +30,10 @@ final class AllTasksPresenter {
 
     weak var viewInput: (UIViewController & AllTasksViewInput)?
     private var toDoItems = [ToDoItem]()
-    private(set) var taskCellViewModels = [TaskCellViewModel]()
+    private(set) var allTaskCellViewModels = [TaskCellViewModel]()
+    private(set) var allOrDoneTaskCellViewModels = [TaskCellViewModel]()
+    private(set) var showDoneTasksIsSelected = true
+
     private let fileCacheService: FileCacheProtocol = FileCache(fileName: ToDoItemFileNames.allToDoItems)
 
     // MARK: - Private Functions
@@ -37,15 +43,33 @@ final class AllTasksPresenter {
 
 extension AllTasksPresenter: AllTasksViewOutput {
 
+    func showDoneTasksButton(isSelected: Bool) {
+        showDoneTasksIsSelected = isSelected
+
+        if showDoneTasksIsSelected {
+            allOrDoneTaskCellViewModels = allTaskCellViewModels
+        } else {
+            allOrDoneTaskCellViewModels = allTaskCellViewModels.filter { $0.isDone == false }
+        }
+        viewInput?.updateTableView()
+    }
+
     func statusChangedFor(taskID: String, to status: Bool) {
-        let newTaskModels: [TaskCellViewModel] = taskCellViewModels.map { model in
+        let newTaskModels: [TaskCellViewModel] = allTaskCellViewModels.map { model in
             var model = model
             if model.id == taskID {
                 model.isDone = status
             }
             return model
         }
-        taskCellViewModels = newTaskModels
+        allTaskCellViewModels = newTaskModels
+
+        if showDoneTasksIsSelected {
+            allOrDoneTaskCellViewModels = allTaskCellViewModels
+        } else {
+            allOrDoneTaskCellViewModels = allTaskCellViewModels.filter { $0.isDone == false }
+        }
+
         viewInput?.updateTableView()
     }
 
@@ -55,6 +79,7 @@ extension AllTasksPresenter: AllTasksViewOutput {
         //            return
         //        }
         let toDoItems = ToDoItemFactory.buildItems()
-        taskCellViewModels = toDoItems.map { TaskCellViewModel.init(from: $0) }
+        allTaskCellViewModels = toDoItems.map { TaskCellViewModel.init(from: $0) }
+        allOrDoneTaskCellViewModels = allTaskCellViewModels
     }
 }

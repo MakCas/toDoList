@@ -104,13 +104,15 @@ extension AllTasksController: UITableViewDelegate {
 extension AllTasksController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.taskCellViewModels.count
+        return presenter.allOrDoneTaskCellViewModels.count
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
-        let doneTasks = presenter.taskCellViewModels.map { $0.isDone }.filter { $0 == true }
+        let doneTasks = presenter.allTaskCellViewModels.map { $0.isDone }.filter { $0 == true }
         view.setNumberDoneTasks(doneTasks.count)
+        view.changeHideDoneTasksStatus(for: presenter.showDoneTasksIsSelected)
+        view.delegate = self
         return view
     }
 
@@ -121,14 +123,14 @@ extension AllTasksController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TaskCell? = tableView.dequeueCell(for: indexPath)
         var typeCell = TypeCell.withoutCorners
-        if presenter.taskCellViewModels.count == 1 {
+        if presenter.allOrDoneTaskCellViewModels.count == 1 {
             typeCell = .willAllCorners
         } else if indexPath.row == 0 {
             typeCell = .first
-        } else if indexPath.row == presenter.taskCellViewModels.count - 1 && presenter.taskCellViewModels.count != 1 {
+        } else if indexPath.row == presenter.allOrDoneTaskCellViewModels.count - 1 && presenter.allOrDoneTaskCellViewModels.count != 1 {
             typeCell = .last
         }
-        let model = presenter.taskCellViewModels[indexPath.row]
+        let model = presenter.allOrDoneTaskCellViewModels[indexPath.row]
         cell?.configureCellWith(model: model, typeCell: typeCell)
         cell?.delegate = self
         return cell ?? UITableViewCell()
@@ -148,5 +150,12 @@ extension AllTasksController: TaskCellDelegate {
 
     func statusChangedFor(taskID: String, to status: Bool) {
         presenter.statusChangedFor(taskID: taskID, to: status)
+    }
+}
+
+extension AllTasksController: AllTasksHeaderViewDelegate {
+
+    func showDoneTasksButton(isSelected: Bool) {
+        presenter.showDoneTasksButton(isSelected: isSelected)
     }
 }
