@@ -115,7 +115,7 @@ extension AllTasksController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeCheckDone = UIContextualAction(style: .normal, title: nil) { [weak self] action, view, success in
-            self?.presenter.doneStatusChangedFor(taskID: nil, indexPathRow: indexPath.row)
+            self?.presenter.taskDoneStatusChangedFor(taskID: nil, indexPathRow: indexPath.row)
         }
         swipeCheckDone.image = UIImage(systemName: "checkmark.circle.fill")
         swipeCheckDone.backgroundColor = .systemGreen
@@ -193,7 +193,7 @@ extension AllTasksController: AllTasksViewInput {
 extension AllTasksController: TaskCellDelegate {
     
     func statusChangedFor(taskID: String) {
-        presenter.doneStatusChangedFor(taskID: taskID, indexPathRow: nil)
+        presenter.taskDoneStatusChangedFor(taskID: taskID, indexPathRow: nil)
     }
 }
 

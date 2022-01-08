@@ -63,6 +63,7 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
     func viewDidLoad() {
         if let toDoItem = toDoItem {
             toDoItemViewModel = ToDoItemViewModel(from: toDoItem)
+            makeSaveButtonEnabledIfNeeded()
         } else {
             toDoItemViewModel = ToDoItemViewModel()
         }

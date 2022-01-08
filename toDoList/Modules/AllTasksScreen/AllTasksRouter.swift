@@ -8,6 +8,7 @@
 import UIKit
 
 protocol AllTasksRouterOutput: AnyObject {
+
     func goToCreateTaskController(for toDoItem: ToDoItem?)
 }
 

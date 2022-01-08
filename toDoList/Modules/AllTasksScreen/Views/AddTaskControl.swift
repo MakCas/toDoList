@@ -34,8 +34,8 @@ final class AddTaskControl: UIControl {
 
     private func configureUI() {
         addSubview(imageView)
-        imageView.image = UIImage(named: "plusButton")
-        imageView.tintColor = .systemBlue
+        imageView.image = UIImage(systemName: "plus.circle.fill")
+        imageView.contentMode = .scaleAspectFill
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
