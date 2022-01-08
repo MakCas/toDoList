@@ -9,7 +9,7 @@ import UIKit
 
 protocol TaskCellDelegate: AnyObject {
 
-    func statusChangedFor(taskID: String, to status: Bool)
+    func statusChangedFor(taskID: String)
 }
 
 enum TypeCell {
@@ -58,6 +58,14 @@ final class TaskCell: UITableViewCell {
         return label
     }()
 
+    private lazy var chevronImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.tintColor = .gray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     // MARK: - Properties
 
     private var typeCell: TypeCell?
@@ -76,19 +84,19 @@ final class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Lifecycle
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
+        setMaskedCorners(for: typeCell ?? .last)
     }
 
     // MARK: - UI
 
     private func configureUI() {
-        accessoryType = .disclosureIndicator
-        backgroundColor = .white
-        layer.cornerRadius = 15
+        selectionStyle = .none
+        backgroundColor = .clear
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 15
 
         addSubviews()
         addConstraints()
@@ -97,6 +105,7 @@ final class TaskCell: UITableViewCell {
     private func addSubviews() {
         contentView.addSubview(checkControl)
         contentView.addSubview(stackView)
+        contentView.addSubview(chevronImageView)
         stackView.addArrangedSubview(taskLabel)
         stackView.addArrangedSubview(deadLineLabel)
     }
@@ -112,9 +121,12 @@ final class TaskCell: UITableViewCell {
             checkControl.widthAnchor.constraint(equalToConstant: 30),
             checkControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
+            chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             stackView.leadingAnchor.constraint(equalTo: checkControl.trailingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            stackView.trailingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: -10),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
@@ -131,6 +143,7 @@ final class TaskCell: UITableViewCell {
             checkControl.changeCircleImageColorToRed(false)
         }
         checkControl.isSelected = model.isDone
+        self.typeCell = typeCell
         setMaskedCorners(for: typeCell)
     }
 
@@ -139,18 +152,18 @@ final class TaskCell: UITableViewCell {
     private func setMaskedCorners(for typeCell: TypeCell) {
         switch typeCell {
         case .first:
-            layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         case .withoutCorners:
-            layer.maskedCorners = []
+            contentView.layer.maskedCorners = []
         case .last:
-            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         case .willAllCorners:
-            layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner]
+            contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner]
         }
     }
 
     @objc private func controlTapped(sender: UIControl) {
         guard let model = taskCellViewModel else { return }
-        delegate?.statusChangedFor(taskID: model.id, to: !sender.isSelected)
+        delegate?.statusChangedFor(taskID: model.id)
     }
 }
