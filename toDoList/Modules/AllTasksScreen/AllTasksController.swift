@@ -110,12 +110,12 @@ extension AllTasksController: UITableViewDelegate {
 extension AllTasksController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.allOrDoneTaskCellViewModels.count
+        return presenter.allOrDueTaskCellViewModels.count
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeCheckDone = UIContextualAction(style: .normal, title: nil) { [weak self] action, view, success in
-            self?.presenter.statusChangedFor(taskID: nil, indexPathRow: indexPath.row)
+            self?.presenter.doneStatusChangedFor(taskID: nil, indexPathRow: indexPath.row)
         }
         swipeCheckDone.image = UIImage(systemName: "checkmark.circle.fill")
         swipeCheckDone.backgroundColor = .systemGreen
@@ -158,14 +158,14 @@ extension AllTasksController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TaskCell? = tableView.dequeueCell(for: indexPath)
         var typeCell = TypeCell.withoutCorners
-        if presenter.allOrDoneTaskCellViewModels.count == 1 {
+        if presenter.allOrDueTaskCellViewModels.count == 1 {
             typeCell = .willAllCorners
         } else if indexPath.row == 0 {
             typeCell = .first
-        } else if indexPath.row == presenter.allOrDoneTaskCellViewModels.count - 1 && presenter.allOrDoneTaskCellViewModels.count != 1 {
+        } else if indexPath.row == presenter.allOrDueTaskCellViewModels.count - 1 && presenter.allOrDueTaskCellViewModels.count != 1 {
             typeCell = .last
         }
-        let model = presenter.allOrDoneTaskCellViewModels[indexPath.row]
+        let model = presenter.allOrDueTaskCellViewModels[indexPath.row]
         cell?.configureCellWith(model: model, typeCell: typeCell)
         cell?.delegate = self
         return cell ?? UITableViewCell()
@@ -175,11 +175,6 @@ extension AllTasksController: UITableViewDataSource {
 // MARK: - AllTasksViewInput
 
 extension AllTasksController: AllTasksViewInput {
-
-    func deleteRows(at indexPath: [IndexPath]) {
-        tableView.deleteRows(at: indexPath, with: .automatic)
-    }
-
 
     func goToCreateTaskController(for toDoItem: ToDoItem?) {
         router.goToCreateTaskController(for: toDoItem)
@@ -195,7 +190,7 @@ extension AllTasksController: AllTasksViewInput {
 extension AllTasksController: TaskCellDelegate {
 
     func statusChangedFor(taskID: String) {
-        presenter.statusChangedFor(taskID: taskID, indexPathRow: nil)
+        presenter.doneStatusChangedFor(taskID: taskID, indexPathRow: nil)
     }
 }
 

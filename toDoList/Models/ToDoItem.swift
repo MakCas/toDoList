@@ -31,11 +31,11 @@ struct ToDoItem {
     
     // MARK: - Properties
     
-    let id: String
+    var id: String
     let text: String
     let importance: ToDoItemImportance
     let deadLine: Date?
-    let isDone: Bool
+    var isDone: Bool
     
     // MARK: - Init
     

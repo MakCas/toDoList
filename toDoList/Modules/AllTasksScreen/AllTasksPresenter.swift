@@ -12,15 +12,15 @@ import UIKit
 protocol AllTasksViewInput: AnyObject {
     func updateTableView()
     func goToCreateTaskController(for toDoItem: ToDoItem?)
-    func deleteRows(at indexPath: [IndexPath])
 }
 
 protocol AllTasksViewOutput: AnyObject {
     var allTaskCellViewModels: [TaskCellViewModel] { get }
-    var allOrDoneTaskCellViewModels: [TaskCellViewModel] { get }
+    var allOrDueTaskCellViewModels: [TaskCellViewModel] { get }
     var showDoneTasksIsSelected: Bool { get }
+    
     func viewDidLoad()
-    func statusChangedFor(taskID: String?, indexPathRow: Int?)
+    func doneStatusChangedFor(taskID: String?, indexPathRow: Int?)
     func showDoneTasksButton(isSelected: Bool)
     func addTaskControlTapped()
     func taskCellTapped(for indexPathRow: Int)
@@ -34,12 +34,25 @@ final class AllTasksPresenter {
     // MARK: - Properties
     
     weak var viewInput: (UIViewController & AllTasksViewInput)?
-    private var toDoItems = [ToDoItem]()
+    private var toDoItems = [ToDoItem]() {
+        didSet {
+            allTaskCellViewModels = toDoItems.map { TaskCellViewModel.init(from: $0) }
+            configureAllOrDoneTaskCellViewModels()
+        }
+    }
     private(set) var allTaskCellViewModels = [TaskCellViewModel]()
-    private(set) var allOrDoneTaskCellViewModels = [TaskCellViewModel]()
+    private(set) var allOrDueTaskCellViewModels = [TaskCellViewModel]()
     private(set) var showDoneTasksIsSelected = true
     
     // MARK: - Private Functions
+    
+    private func configureAllOrDoneTaskCellViewModels() {
+        if showDoneTasksIsSelected {
+            allOrDueTaskCellViewModels = allTaskCellViewModels
+        } else {
+            allOrDueTaskCellViewModels = allTaskCellViewModels.filter { $0.isDone == false }
+        }
+    }
 }
 
 // MARK: - ChatViewOutput
@@ -47,14 +60,20 @@ final class AllTasksPresenter {
 extension AllTasksPresenter: AllTasksViewOutput {
     
     func deleteTask(for indexPath: IndexPath) {
-        printDebug("deleteTask worked")
-        allOrDoneTaskCellViewModels.remove(at: indexPath.row)
+        let deletedTaskModel = allOrDueTaskCellViewModels[indexPath.row]
+        
+        toDoItems.removeAll { item in
+            if item.id == deletedTaskModel.id {
+                return true
+            } else {
+                return false
+            }
+        }
         viewInput?.updateTableView()
-        //        viewInput?.deleteRows(at: [indexPath])
     }
     
     func taskCellTapped(for indexPathRow: Int) {
-        let tappedModel = allTaskCellViewModels[indexPathRow]
+        let tappedModel = allOrDueTaskCellViewModels[indexPathRow]
         
         let toDoItem = ToDoItem(
             id: tappedModel.id,
@@ -74,47 +93,36 @@ extension AllTasksPresenter: AllTasksViewOutput {
     func showDoneTasksButton(isSelected: Bool) {
         showDoneTasksIsSelected = isSelected
         
-        if showDoneTasksIsSelected {
-            allOrDoneTaskCellViewModels = allTaskCellViewModels
-        } else {
-            allOrDoneTaskCellViewModels = allTaskCellViewModels.filter { $0.isDone == false }
-        }
+        configureAllOrDoneTaskCellViewModels()
         viewInput?.updateTableView()
     }
     
-    func statusChangedFor(taskID: String?, indexPathRow: Int?) {
-        
-        var newTaskModels = allTaskCellViewModels
+    func doneStatusChangedFor(taskID: String?, indexPathRow: Int?) {
+        var changedTaskModelId: String?
         
         if let taskID = taskID {
-            newTaskModels = allTaskCellViewModels.map { model in
-                var model = model
-                if model.id == taskID {
-                    model.isDone.toggle()
-                }
-                return model
-            }
+            changedTaskModelId = taskID
         } else if let indexPathRow = indexPathRow {
-            var model = allTaskCellViewModels[indexPathRow]
-            model.isDone.toggle()
-            newTaskModels[indexPathRow] = model
+            changedTaskModelId = allOrDueTaskCellViewModels[indexPathRow].id
         }
+        guard let changedTaskModelId = changedTaskModelId else { return }
         
-        allTaskCellViewModels = newTaskModels
-        
-        if showDoneTasksIsSelected {
-            allOrDoneTaskCellViewModels = allTaskCellViewModels
-        } else {
-            allOrDoneTaskCellViewModels = allTaskCellViewModels.filter { $0.isDone == false }
+        toDoItems = toDoItems.map { item in
+            if item.id == changedTaskModelId {
+                return ToDoItem(
+                    id: item.id,
+                    text: item.text,
+                    importance: item.importance,
+                    deadLine: item.deadLine,
+                    isDone: !item.isDone
+                )
+            }
+            return item
         }
-        
         viewInput?.updateTableView()
     }
     
     func viewDidLoad() {
-        toDoItems = FileCache.shared.toDoItems
         toDoItems = ToDoItemFactory.buildItems()
-        allTaskCellViewModels = toDoItems.map { TaskCellViewModel.init(from: $0) }
-        allOrDoneTaskCellViewModels = allTaskCellViewModels
     }
 }
