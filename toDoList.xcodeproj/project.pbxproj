@@ -19,6 +19,7 @@
 		CE159C2027859F9800FAB879 /* AllTasksRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE159C1F27859F9800FAB879 /* AllTasksRouter.swift */; };
 		CE159C222785A19500FAB879 /* AppStartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE159C212785A19500FAB879 /* AppStartService.swift */; };
 		CE2F65F82789CD7D00566F61 /* BigAreaControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F65F72789CD7C00566F61 /* BigAreaControl.swift */; };
+		CE2F65FA2789D02300566F61 /* CreateTaskRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F65F92789D02300566F61 /* CreateTaskRouter.swift */; };
 		CE3737D427880300002A8AA5 /* NSMutableString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3737D327880300002A8AA5 /* NSMutableString+.swift */; };
 		CE3737D627885214002A8AA5 /* AddTaskControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3737D527885214002A8AA5 /* AddTaskControl.swift */; };
 		CE4389D527817B7300154DFB /* ImportanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4389D427817B7300154DFB /* ImportanceView.swift */; };
@@ -65,6 +66,7 @@
 		CE159C1F27859F9800FAB879 /* AllTasksRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksRouter.swift; sourceTree = "<group>"; };
 		CE159C212785A19500FAB879 /* AppStartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartService.swift; sourceTree = "<group>"; };
 		CE2F65F72789CD7C00566F61 /* BigAreaControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigAreaControl.swift; sourceTree = "<group>"; };
+		CE2F65F92789D02300566F61 /* CreateTaskRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTaskRouter.swift; sourceTree = "<group>"; };
 		CE3737D327880300002A8AA5 /* NSMutableString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableString+.swift"; sourceTree = "<group>"; };
 		CE3737D527885214002A8AA5 /* AddTaskControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskControl.swift; sourceTree = "<group>"; };
 		CE4389D427817B7300154DFB /* ImportanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportanceView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				CE09F0DF277F405600306207 /* CreateTaskController.swift */,
 				CEE56A7F278427F700218593 /* CreateTaskPresenter.swift */,
 				CEE56A81278429A000218593 /* CreateTaskBuilder.swift */,
+				CE2F65F92789D02300566F61 /* CreateTaskRouter.swift */,
 			);
 			path = CreateTaskScreen;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				CE899EF9278757FE00F1FA0A /* TaskCellViewModel.swift in Sources */,
 				CE5BD9DD2780813400E8AA0F /* FileManagerService.swift in Sources */,
 				CEF197A927870BD3009223E4 /* UIView+.swift in Sources */,
+				CE2F65FA2789D02300566F61 /* CreateTaskRouter.swift in Sources */,
 				CEE56A8427842DB600218593 /* ToDoItemViewModel.swift in Sources */,
 				CE159C2027859F9800FAB879 /* AllTasksRouter.swift in Sources */,
 			);

@@ -79,6 +79,7 @@ final class CreateTaskController: UIViewController {
         button.setTitle(Layout.TopStackView.cancelButtonTextKey, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -175,12 +176,14 @@ final class CreateTaskController: UIViewController {
     // MARK: - Properties
     
     private var presenter: CreteTaskViewOutput
+    private var router: CreateTaskRouterOutput
     private var keyboardHeight: CGFloat?
     
     // MARK: - Init
     
-    init(presenter: CreteTaskViewOutput) {
+    init(presenter: CreteTaskViewOutput, router: CreateTaskRouterOutput) {
         self.presenter = presenter
+        self.router = router
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -306,6 +309,10 @@ final class CreateTaskController: UIViewController {
     @objc private func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
     }
+
+    @objc private func cancelButtonTapped() {
+        presenter.cancelButtonTapped()
+    }
 }
 
 // MARK: - DeadLineViewDelegate
@@ -320,6 +327,10 @@ extension CreateTaskController: DeadLineViewDelegate {
 // MARK: - CreteTaskViewInput
 
 extension CreateTaskController: CreteTaskViewInput {
+
+    func goBack() {
+        router.goBack()
+    }
     
     func configureUIWith(toDoItem: ToDoItemViewModel) {
         importanceView.setSegmentControl(for: toDoItem.importance)

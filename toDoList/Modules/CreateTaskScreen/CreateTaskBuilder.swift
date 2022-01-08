@@ -12,8 +12,10 @@ enum CreateTaskBuilder {
     static func build(with toDoItem: ToDoItem?) -> (UIViewController & CreteTaskViewInput) {
         
         let presenter = CreteTaskPresenter(toDoItem: toDoItem)
-        let viewController = CreateTaskController(presenter: presenter)
+        let router = CreateTaskRouter()
+        let viewController = CreateTaskController(presenter: presenter, router: router)
         presenter.viewInput = viewController
+        router.viewController = viewController
         return viewController
     }
 }
