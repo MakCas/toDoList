@@ -46,8 +46,7 @@ final class CreteTaskPresenter {
 
     private func makeSaveButtonEnabledIfNeeded() {
         guard
-            !toDoItemViewModel.text.isNilOrEmpty,
-            toDoItemViewModel.importance != nil
+            !toDoItemViewModel.text.isNilOrEmpty
         else {
             viewInput?.makeSaveButton(enable: false)
             return

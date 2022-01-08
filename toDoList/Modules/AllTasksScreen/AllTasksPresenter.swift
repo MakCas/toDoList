@@ -93,11 +93,8 @@ extension AllTasksPresenter: AllTasksViewOutput {
     }
 
     func viewDidLoad() {
-        //        guard let items = fileCacheService.loadItemsFromFile() else {
-        //            printDebug("Items were not found for \(ToDoItemFileNames.allToDoItems)")
-        //            return
-        //        }
-        let toDoItems = ToDoItemFactory.buildItems()
+        toDoItems = FileCache.shared.toDoItems
+        toDoItems = ToDoItemFactory.buildItems()
         allTaskCellViewModels = toDoItems.map { TaskCellViewModel.init(from: $0) }
         allOrDoneTaskCellViewModels = allTaskCellViewModels
     }

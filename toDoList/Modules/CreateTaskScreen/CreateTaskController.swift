@@ -193,7 +193,7 @@ final class CreateTaskController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
-        addScrollViewGesture()
+        //        addScrollViewGesture()
         configureUI()
         addObservers()
     }
@@ -208,15 +208,15 @@ final class CreateTaskController: UIViewController {
         view.endEditing(true)
     }
 
-    private func addScrollViewGesture() {
-        scrollView.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
-        scrollView.addGestureRecognizer(gesture)
-    }
+    //    private func addScrollViewGesture() {
+    //        scrollView.isUserInteractionEnabled = true
+    //        let gesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
+    //        scrollView.addGestureRecognizer(gesture)
+    //    }
 
-    @objc private func scrollViewTapped() {
-        view.endEditing(true)
-    }
+    //    @objc private func scrollViewTapped() {
+    //        view.endEditing(true)
+    //    }
 
     @objc private func datePickerTapped(sender: UIDatePicker) {
         presenter.datePickerTapped(for: sender.date)
@@ -281,6 +281,7 @@ final class CreateTaskController: UIViewController {
     }
 
     // MARK: - Private Functions
+
     @objc private func saveButtonTapped() {
         presenter.saveButtonTapped()
     }
@@ -321,14 +322,17 @@ extension CreateTaskController: DeadLineViewDelegate {
 extension CreateTaskController: CreteTaskViewInput {
 
     func configureUIWith(toDoItem: ToDoItemViewModel) {
-        taskTextView.text = toDoItem.text
         importanceView.setSegmentControl(for: toDoItem.importance)
+
+        if let text = toDoItem.text {
+            taskTextView.change(text: text)
+        }
 
         guard let date = toDoItem.deadLine else { return }
         calendarDatePicker.isHidden = false
+        deadLineView.makeSwitcherOn()
         deadLineView.makeLayoutForSwitcherIsON(for: date)
         calendarDatePicker.setDate(date, animated: false)
-        deadLineView.makeSwitcherOn()
     }
 
     func makeSaveButton(enable: Bool) {
