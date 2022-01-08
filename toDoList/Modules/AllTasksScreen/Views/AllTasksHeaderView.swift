@@ -27,7 +27,7 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     private lazy var doneLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray2
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,12 +59,12 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
-       super.layoutSubviews()
-       subviews.filter { $0 != contentView && $0.frame.width == frame.width }.first?.removeFromSuperview()
-   }
-
+        super.layoutSubviews()
+        subviews.filter { $0 != contentView && $0.frame.width == frame.width }.first?.removeFromSuperview()
+    }
+    
     // MARK: - UI
     
     private func configureUI() {

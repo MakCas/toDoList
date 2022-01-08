@@ -18,7 +18,7 @@ protocol AllTasksViewOutput: AnyObject {
     var allTaskCellViewModels: [TaskCellViewModel] { get }
     var allOrDueTaskCellViewModels: [TaskCellViewModel] { get }
     var showDoneTasksIsSelected: Bool { get }
-    
+
     func viewDidLoad()
     func doneStatusChangedFor(taskID: String?, indexPathRow: Int?)
     func showDoneTasksButton(isSelected: Bool)
@@ -30,9 +30,9 @@ protocol AllTasksViewOutput: AnyObject {
 // MARK: - Class
 
 final class AllTasksPresenter {
-    
+
     // MARK: - Properties
-    
+
     weak var viewInput: (UIViewController & AllTasksViewInput)?
     private var toDoItems = [ToDoItem]() {
         didSet {
@@ -42,10 +42,10 @@ final class AllTasksPresenter {
     }
     private(set) var allTaskCellViewModels = [TaskCellViewModel]()
     private(set) var allOrDueTaskCellViewModels = [TaskCellViewModel]()
-    private(set) var showDoneTasksIsSelected = true
-    
+    private(set) var showDoneTasksIsSelected = false
+
     // MARK: - Private Functions
-    
+
     private func configureAllOrDoneTaskCellViewModels() {
         if showDoneTasksIsSelected {
             allOrDueTaskCellViewModels = allTaskCellViewModels
@@ -58,10 +58,10 @@ final class AllTasksPresenter {
 // MARK: - ChatViewOutput
 
 extension AllTasksPresenter: AllTasksViewOutput {
-    
+
     func deleteTask(for indexPath: IndexPath) {
         let deletedTaskModel = allOrDueTaskCellViewModels[indexPath.row]
-        
+
         toDoItems.removeAll { item in
             if item.id == deletedTaskModel.id {
                 return true
@@ -71,10 +71,10 @@ extension AllTasksPresenter: AllTasksViewOutput {
         }
         viewInput?.updateTableView()
     }
-    
+
     func taskCellTapped(for indexPathRow: Int) {
         let tappedModel = allOrDueTaskCellViewModels[indexPathRow]
-        
+
         let toDoItem = ToDoItem(
             id: tappedModel.id,
             text: tappedModel.itemText.string,
@@ -82,31 +82,31 @@ extension AllTasksPresenter: AllTasksViewOutput {
             deadLine: tappedModel.deadLine,
             isDone: tappedModel.isDone
         )
-        
+
         viewInput?.goToCreateTaskController(for: toDoItem)
     }
-    
+
     func addTaskControlTapped() {
         viewInput?.goToCreateTaskController(for: nil)
     }
-    
+
     func showDoneTasksButton(isSelected: Bool) {
         showDoneTasksIsSelected = isSelected
-        
+
         configureAllOrDoneTaskCellViewModels()
         viewInput?.updateTableView()
     }
-    
+
     func doneStatusChangedFor(taskID: String?, indexPathRow: Int?) {
         var changedTaskModelId: String?
-        
+
         if let taskID = taskID {
             changedTaskModelId = taskID
         } else if let indexPathRow = indexPathRow {
             changedTaskModelId = allOrDueTaskCellViewModels[indexPathRow].id
         }
         guard let changedTaskModelId = changedTaskModelId else { return }
-        
+
         toDoItems = toDoItems.map { item in
             if item.id == changedTaskModelId {
                 return ToDoItem(
@@ -121,7 +121,7 @@ extension AllTasksPresenter: AllTasksViewOutput {
         }
         viewInput?.updateTableView()
     }
-    
+
     func viewDidLoad() {
         toDoItems = ToDoItemFactory.buildItems()
     }
