@@ -45,13 +45,7 @@ final class CreteTaskPresenter {
     // MARK: - Private Functions
 
     private func makeSaveButtonEnabledIfNeeded() {
-        guard
-            !toDoItemViewModel.text.isNilOrEmpty
-        else {
-            viewInput?.makeSaveButton(enable: false)
-            return
-        }
-        viewInput?.makeSaveButton(enable: true)
+        viewInput?.makeSaveButton(enable: !toDoItemViewModel.text.isNilOrEmpty)
     }
 }
 
@@ -62,10 +56,10 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
     func viewDidLoad() {
         if let toDoItem = toDoItem {
             toDoItemViewModel = ToDoItemViewModel(from: toDoItem)
-            viewInput?.configureUIWith(toDoItem: toDoItemViewModel)
         } else {
             toDoItemViewModel = ToDoItemViewModel()
         }
+        viewInput?.configureUIWith(toDoItem: toDoItemViewModel)
     }
 
     func textViewDidChange(with text: String) {
@@ -77,7 +71,7 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
         toDoItemViewModel.importance = importance
         makeSaveButtonEnabledIfNeeded()
     }
-
+    
     func deadLineSwitchChanged(isOn: Bool) {
         if isOn {
             let date = Date()
@@ -95,11 +89,7 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
     }
 
     func saveButtonTapped() {
-        guard
-            let text = toDoItemViewModel.text
-        else {
-            return
-        }
+        guard let text = toDoItemViewModel.text else { return }
         let toDoItem = ToDoItem(text: text, importance: toDoItemViewModel.importance, deadLine: toDoItemViewModel.deadLine)
         printDebug(toDoItem)
         return
