@@ -8,7 +8,7 @@
 import UIKit
 
 struct TaskCellViewModel {
-    
+
     var id: String
     var itemText: NSMutableAttributedString
     var itemImportance: ToDoItemImportance
@@ -19,25 +19,25 @@ struct TaskCellViewModel {
             itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: itemText, isDone: isDone)
         }
     }
-    
+
     // MARK: - Init
-    
+
     init(from item: ToDoItem) {
         self.id = item.id
         self.itemImportance = item.importance
         self.isDone = item.isDone
         self.deadLine = item.deadLine
-        
+
         let textMutableString = TaskCellViewModel.getImportantTextIfNeeded(for: item.text, importance: item.importance)
         itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: textMutableString, isDone: item.isDone)
-        
+
         guard let deadLine = item.deadLine else { return }
         let dateString = TaskCellViewModel.transferDateToString(from: deadLine)
         self.deadLineWithCalendar = TaskCellViewModel.addCalendarImage(for: dateString)
     }
-    
+
     // MARK: - Helpers for Init
-    
+
     private static func getImportantTextIfNeeded(for text: String, importance: ToDoItemImportance) -> NSMutableAttributedString {
         let fullTextString: NSMutableAttributedString = NSMutableAttributedString(string: "")
         let taskTextMutableString = NSMutableAttributedString(string: text)
@@ -49,41 +49,47 @@ struct TaskCellViewModel {
         fullTextString.append(taskTextMutableString)
         return fullTextString
     }
-    
+
     private static func getStrikeThroughTextIfNeeded(for string: NSMutableAttributedString, isDone: Bool) -> NSMutableAttributedString {
         if isDone {
-            string.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: string.length))
+            string.addAttributes(
+                [
+                    .foregroundColor : UIColor.systemGray,
+                    .strikethroughStyle: 1
+                ],
+                range: NSRange(location: 0, length: string.length)
+            )
         } else {
-            string.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSRange(location: 0, length: string.length))
+            string.removeAttribute(.strikethroughStyle, range: NSRange(location: 0, length: string.length))
         }
         return string
     }
-    
+
     private static func transferDateToString(from date: Date) -> String {
         let formatter = DateFormatter.shared
         formatter.dateFormat = "d MMMM"
         let dateString = formatter.string(from: date)
         return dateString
     }
-    
+
     private static func addCalendarImage(for string: String) -> NSMutableAttributedString {
         let fullString = NSMutableAttributedString(string: "")
-        
+
         let imageCalendarAttachment = NSTextAttachment()
         imageCalendarAttachment.image = UIImage(named: "calendar")?.withTintColor(.systemGray)
         let imageString = NSAttributedString(attachment: imageCalendarAttachment)
-        
+
         fullString.append(imageString)
         fullString.append(NSAttributedString(string: " " + string))
-        
+
         fullString.addAttributes(
             [
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
-                NSAttributedString.Key.foregroundColor : UIColor.systemGray
+                .font : UIFont.systemFont(ofSize: 15),
+                .foregroundColor : UIColor.systemGray
             ],
             range: NSRange(location: 0, length: fullString.length)
         )
-        
+
         return fullString
     }
 }

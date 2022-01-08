@@ -28,7 +28,7 @@ final class CheckControl: UIControl {
                 checkImageView.tintColor = .systemGreen
             } else {
                 checkImageView.image = UIImage(named: "circle")
-                checkImageView.tintColor = circleImageRed ? .red : .gray
+                checkImageView.tintColor = circleImageRed ? .systemRed : .systemGray3
             }
         }
     }
