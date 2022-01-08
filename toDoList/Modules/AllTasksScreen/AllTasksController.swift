@@ -18,7 +18,7 @@ final class AllTasksController: UIViewController {
     // MARK: - Subviews
 
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
@@ -145,6 +145,7 @@ extension AllTasksController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
         let doneTasks = presenter.allTaskCellViewModels.map { $0.isDone }.filter { $0 == true }
+        view.layer.masksToBounds = true
         view.setNumberDoneTasks(doneTasks.count)
         view.changeHideDoneTasksStatus(for: presenter.showDoneTasksIsSelected)
         view.delegate = self

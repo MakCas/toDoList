@@ -27,6 +27,7 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     private lazy var doneLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .systemGray2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -37,6 +38,7 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
         button.setTitle("Скрыть", for: .selected)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font =  UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.addTarget(self, action: #selector(showHideButtonTapped(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -57,7 +59,12 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func layoutSubviews() {
+       super.layoutSubviews()
+       subviews.filter { $0 != contentView && $0.frame.width == frame.width }.first?.removeFromSuperview()
+   }
+
     // MARK: - UI
     
     private func configureUI() {
