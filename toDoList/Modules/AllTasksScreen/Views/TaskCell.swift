@@ -13,10 +13,10 @@ protocol TaskCellDelegate: AnyObject {
 }
 
 enum TypeCell {
-    case first
-    case withoutCorners
-    case willAllCorners
-    case last
+    case withTopMaskedCorners
+    case withoutMaskedCorners
+    case willAllMaskedCorners
+    case withBottomMaskedCorners
 }
 
 final class TaskCell: UITableViewCell {
@@ -175,14 +175,14 @@ final class TaskCell: UITableViewCell {
     private func setMaskedCornersAndSeparator(for typeCell: TypeCell) {
         lineView.isHidden = false
         switch typeCell {
-        case .first:
+        case .withTopMaskedCorners:
             contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        case .withoutCorners:
+        case .withoutMaskedCorners:
             contentView.layer.maskedCorners = []
-        case .last:
+        case .withBottomMaskedCorners:
             contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             lineView.isHidden = true
-        case .willAllCorners:
+        case .willAllMaskedCorners:
             contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner]
             lineView.isHidden = true
         }

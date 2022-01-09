@@ -18,3 +18,7 @@
 "exclamationMark" = "‼";
 "doTill" = "Do till";
 "delete" = "Delete";
+
+// MARK: - AllTaskController
+
+"titleForAllTaskController" = "Мои дела";
