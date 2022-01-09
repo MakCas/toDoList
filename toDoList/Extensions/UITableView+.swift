@@ -5,7 +5,6 @@
 //  Created by User on 06.01.2022.
 //
 
-
 import UIKit
 
 extension UITableView {

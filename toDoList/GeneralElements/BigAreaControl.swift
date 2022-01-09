@@ -9,18 +9,18 @@ import UIKit
 
 class BigAreaControl: UIControl {
 
-    //MARK: - Layout
+    // MARK: - Layout
 
     private enum Layout {
         static let minTapArea: CGFloat = 44
     }
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var xInset: CGFloat
     var yInset: CGFloat
 
-    //MARK: - Init
+    // MARK: - Init
 
     init(xInset: CGFloat = 0, yInset: CGFloat = 0) {
         self.xInset = xInset
@@ -34,7 +34,7 @@ class BigAreaControl: UIControl {
         super.init(coder: coder)
     }
 
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if xInset == 0 && yInset == 0 {
@@ -46,7 +46,7 @@ class BigAreaControl: UIControl {
                 yInset = Layout.minTapArea - bounds.width
             }
             return bounds.insetBy(dx: -xInset, dy: -yInset).contains(point)
-        }  else {
+        } else {
             return bounds.insetBy(dx: -xInset, dy: -yInset).contains(point)
         }
     }

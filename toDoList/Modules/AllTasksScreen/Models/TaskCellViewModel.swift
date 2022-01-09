@@ -9,10 +9,9 @@ import UIKit
 
 struct TaskCellViewModel {
 
-    var id: String
+    let id: String
     var itemText: NSMutableAttributedString
     var itemImportance: ToDoItemImportance
-    var deadLine: Date?
     var deadLineWithCalendar: NSMutableAttributedString?
     var isDone: Bool {
         didSet {
@@ -26,7 +25,6 @@ struct TaskCellViewModel {
         self.id = item.id
         self.itemImportance = item.importance
         self.isDone = item.isDone
-        self.deadLine = item.deadLine
 
         let textMutableString = TaskCellViewModel.getImportantTextIfNeeded(for: item.text, importance: item.importance)
         itemText = TaskCellViewModel.getStrikeThroughTextIfNeeded(for: textMutableString, isDone: item.isDone)
@@ -49,12 +47,12 @@ struct TaskCellViewModel {
         fullTextString.append(taskTextMutableString)
         return fullTextString
     }
-
+    
     private static func getStrikeThroughTextIfNeeded(for string: NSMutableAttributedString, isDone: Bool) -> NSMutableAttributedString {
         if isDone {
             string.addAttributes(
                 [
-                    .foregroundColor : UIColor.systemGray,
+                    .foregroundColor: UIColor.systemGray,
                     .strikethroughStyle: 1
                 ],
                 range: NSRange(location: 0, length: string.length)
@@ -84,8 +82,8 @@ struct TaskCellViewModel {
 
         fullString.addAttributes(
             [
-                .font : UIFont.systemFont(ofSize: 15),
-                .foregroundColor : UIColor.systemGray
+                .font: UIFont.systemFont(ofSize: 15),
+                .foregroundColor: UIColor.systemGray
             ],
             range: NSRange(location: 0, length: fullString.length)
         )

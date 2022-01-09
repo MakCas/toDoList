@@ -31,10 +31,10 @@ struct ToDoItem {
     
     // MARK: - Properties
     
-    var id: String
-    let text: String
-    let importance: ToDoItemImportance
-    let deadLine: Date?
+    let id: String
+    var text: String
+    var importance: ToDoItemImportance
+    var deadLine: Date?
     var isDone: Bool
     
     // MARK: - Init
@@ -61,7 +61,8 @@ extension ToDoItem {
     var json: Any {
         var toDoItemDictionary: [String: Any] = [
             "id": id as Any,
-            "text": text as Any
+            "text": text as Any,
+            "isDone": isDone as Any
         ]
         
         if importance != .usual {
@@ -71,19 +72,15 @@ extension ToDoItem {
         if let deadLine = deadLine?.timeIntervalSince1970 {
             toDoItemDictionary["deadLine"] = deadLine as Any
         }
-        
-        do {
-            return try JSONSerialization.data(withJSONObject: toDoItemDictionary)
-        } catch {
-            fatalError("Error during serialization")
-        }
+        return toDoItemDictionary
     }
     
     static func parse(json: Any) -> ToDoItem? {
         guard
             let toDoItemJson = json as? [String: Any],
             let id = toDoItemJson["id"] as? String,
-            let text = toDoItemJson["text"] as? String
+            let text = toDoItemJson["text"] as? String,
+            let isDone = toDoItemJson["isDone"] as? Bool
         else {
             return nil
         }
@@ -105,7 +102,8 @@ extension ToDoItem {
             id: id,
             text: text,
             importance: importanceForCreateItem ?? .usual,
-            deadLine: deadLineDate
+            deadLine: deadLineDate,
+            isDone: isDone
         )
     }
 }

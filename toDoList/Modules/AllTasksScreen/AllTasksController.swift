@@ -12,19 +12,19 @@ final class AllTasksController: UIViewController {
     // MARK: - Layout
     
     enum Layout {
-
+        
         enum NavigationItem {
             static let title = "titleForAllTaskController".localised()
         }
-
+        
         enum TableView {
             static let insets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: -15)
         }
-
+        
         enum HeaderView {
             static let height: CGFloat = 40
         }
-
+        
         enum AddTaskControl {
             static let bottomInset: CGFloat = -15
             static let size: CGFloat = 60
@@ -56,13 +56,15 @@ final class AllTasksController: UIViewController {
     // MARK: - Properties
     
     private var presenter: AllTasksViewOutput
-    private var router: AllTasksRouterOutput
+    
+    private var cellViewModels = [TaskCellViewModel]()
+    private var doneTasksCount = 0
+    private var showDoneTasksIsSelected = false
     
     // MARK: - Init
     
-    init(presenter: AllTasksViewOutput, router: AllTasksRouterOutput) {
+    init(presenter: AllTasksViewOutput) {
         self.presenter = presenter
-        self.router = router
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,7 +96,7 @@ final class AllTasksController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(addTaskControl)
     }
-
+    
     private func addConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -114,7 +116,7 @@ final class AllTasksController: UIViewController {
     @objc private func addTaskControlTapped() {
         presenter.addTaskControlTapped()
     }
-
+    
     private func setTypeCell(with indexPathRow: Int, for numberOfCells: Int) -> TypeCell {
         if numberOfCells == 1 {
             return .willAllMaskedCorners
@@ -130,32 +132,36 @@ final class AllTasksController: UIViewController {
 // MARK: - UITableViewDelegate
 
 extension AllTasksController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.taskCellTapped(for: indexPath.row)
+        let tappedTaskModelId = cellViewModels[indexPath.row].id
+        presenter.taskCellTappedFor(taskID: tappedTaskModelId)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeCheckDone = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, _ in
-            self?.presenter.taskDoneStatusChangedFor(taskID: nil, indexPathRow: indexPath.row)
+            guard let changedTaskModelId = self?.cellViewModels[indexPath.row].id else { return }
+            self?.presenter.taskDoneStatusChangedFor(taskId: changedTaskModelId)
         }
         swipeCheckDone.image = .checkMarkCircleFill
         swipeCheckDone.backgroundColor = .systemGreen
         return UISwipeActionsConfiguration(actions: [swipeCheckDone])
     }
-
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeInfo = UIContextualAction(style: .normal, title: nil) { _, _, _ in
-            printDebug("SwipeInfo")
+        let swipeInfo = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, _ in
+            guard let tappedTaskModelId = self?.cellViewModels[indexPath.row].id else { return }
+            self?.presenter.taskCellTappedFor(taskID: tappedTaskModelId)
         }
         swipeInfo.image = .infoCircleFill
-
+        
         let swipeDelete = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, _ in
-            self?.presenter.deleteTask(for: indexPath)
+            guard let deletedTaskModelId = self?.cellViewModels[indexPath.row].id else { return }
+            self?.presenter.deleteTaskFor(taskID: deletedTaskModelId)
         }
         swipeDelete.image = .trashFill
-
+        
         return UISwipeActionsConfiguration(actions: [swipeDelete, swipeInfo])
     }
 }
@@ -165,15 +171,14 @@ extension AllTasksController: UITableViewDelegate {
 extension AllTasksController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.allOrDueTaskCellViewModels.count
+        return cellViewModels.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = AllTasksHeaderView()
-        let doneTasks = presenter.allTaskCellViewModels.map { $0.isDone }.filter { $0 == true }
         view.layer.masksToBounds = true
-        view.setNumberDoneTasks(doneTasks.count)
-        view.changeHideDoneTasksStatus(for: presenter.showDoneTasksIsSelected)
+        view.setNumberDoneTasks(doneTasksCount)
+        view.changeHideDoneTasksStatus(for: showDoneTasksIsSelected)
         view.delegate = self
         return view
     }
@@ -184,11 +189,11 @@ extension AllTasksController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TaskCell? = tableView.dequeueCell(for: indexPath)
-
-        let numberOfCells = presenter.allOrDueTaskCellViewModels.count
+        
+        let numberOfCells = cellViewModels.count
         let typeCell = setTypeCell(with: indexPath.row, for: numberOfCells)
-        let taskViewModel = presenter.allOrDueTaskCellViewModels[indexPath.row]
-
+        let taskViewModel = cellViewModels[indexPath.row]
+        
         cell?.configureCellWith(model: taskViewModel, typeCell: typeCell)
         cell?.delegate = self
         return cell ?? UITableViewCell()
@@ -199,11 +204,10 @@ extension AllTasksController: UITableViewDataSource {
 
 extension AllTasksController: AllTasksViewInput {
     
-    func goToCreateTaskController(for toDoItem: ToDoItem?) {
-        router.goToCreateTaskController(for: toDoItem)
-    }
-    
-    func updateTableView() {
+    func update(cellViewModels: [TaskCellViewModel], doneTasksCount: Int, showDoneTasksIsSelected: Bool) {
+        self.cellViewModels = cellViewModels
+        self.doneTasksCount = doneTasksCount
+        self.showDoneTasksIsSelected = showDoneTasksIsSelected
         tableView.reloadData()
     }
 }
@@ -213,7 +217,7 @@ extension AllTasksController: AllTasksViewInput {
 extension AllTasksController: TaskCellDelegate {
     
     func statusChangedFor(taskID: String) {
-        presenter.taskDoneStatusChangedFor(taskID: taskID, indexPathRow: nil)
+        presenter.taskDoneStatusChangedFor(taskId: taskID)
     }
 }
 

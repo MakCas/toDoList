@@ -176,14 +176,12 @@ final class CreateTaskController: UIViewController {
     // MARK: - Properties
     
     private var presenter: CreteTaskViewOutput
-    private var router: CreateTaskRouterOutput
     private var keyboardHeight: CGFloat?
     
     // MARK: - Init
     
-    init(presenter: CreteTaskViewOutput, router: CreateTaskRouterOutput) {
+    init(presenter: CreteTaskViewOutput) {
         self.presenter = presenter
-        self.router = router
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -196,7 +194,6 @@ final class CreateTaskController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
-        //        addScrollViewGesture()
         configureUI()
         addObservers()
     }
@@ -210,21 +207,7 @@ final class CreateTaskController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-    //    private func addScrollViewGesture() {
-    //        scrollView.isUserInteractionEnabled = true
-    //        let gesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
-    //        scrollView.addGestureRecognizer(gesture)
-    //    }
-    
-    //    @objc private func scrollViewTapped() {
-    //        view.endEditing(true)
-    //    }
-    
-    @objc private func datePickerTapped(sender: UIDatePicker) {
-        presenter.datePickerTapped(for: sender.date)
-    }
-    
+
     private func configureUI() {
         view.backgroundColor = .backGroundColor
         
@@ -313,6 +296,11 @@ final class CreateTaskController: UIViewController {
     @objc private func cancelButtonTapped() {
         presenter.cancelButtonTapped()
     }
+
+    @objc private func datePickerTapped(sender: UIDatePicker) {
+        presenter.datePickerTapped(for: sender.date)
+    }
+
 }
 
 // MARK: - DeadLineViewDelegate
@@ -328,10 +316,6 @@ extension CreateTaskController: DeadLineViewDelegate {
 
 extension CreateTaskController: CreteTaskViewInput {
 
-    func goBack() {
-        router.goBack()
-    }
-    
     func configureUIWith(toDoItem: ToDoItemViewModel) {
         importanceView.setSegmentControl(for: toDoItem.importance)
         

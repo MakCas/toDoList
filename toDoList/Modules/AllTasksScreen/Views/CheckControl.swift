@@ -65,5 +65,3 @@ final class CheckControl: BigAreaControl {
         circleImageRed = needsRed
     }
 }
-
-

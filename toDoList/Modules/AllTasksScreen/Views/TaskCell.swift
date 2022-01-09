@@ -144,7 +144,6 @@ final class TaskCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: -10),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
 
-
             lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

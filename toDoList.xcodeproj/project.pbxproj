@@ -39,7 +39,7 @@
 		CEC0A60127802986003503C1 /* UIImage+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60027802986003503C1 /* UIImage+Images.swift */; };
 		CEC0A60327802A3B003503C1 /* String+Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60227802A3B003503C1 /* String+Strings.swift */; };
 		CEC0A60627803C0B003503C1 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A60527803C0B003503C1 /* ToDoItem.swift */; };
-		CEC0A609278064EB003503C1 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A608278064EB003503C1 /* FileCache.swift */; };
+		CEC0A609278064EB003503C1 /* FileCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0A608278064EB003503C1 /* FileCacheService.swift */; };
 		CED5D7742782C5D800B96017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CED5D7762782C5D800B96017 /* Localizable.strings */; };
 		CED5D7802782CE2700B96017 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED5D77E2782CE2700B96017 /* LaunchScreen.storyboard */; };
 		CEE56A80278427F700218593 /* CreateTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE56A7F278427F700218593 /* CreateTaskPresenter.swift */; };
@@ -86,7 +86,7 @@
 		CEC0A60027802986003503C1 /* UIImage+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Images.swift"; sourceTree = "<group>"; };
 		CEC0A60227802A3B003503C1 /* String+Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Strings.swift"; sourceTree = "<group>"; };
 		CEC0A60527803C0B003503C1 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
-		CEC0A608278064EB003503C1 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		CEC0A608278064EB003503C1 /* FileCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheService.swift; sourceTree = "<group>"; };
 		CED5D7752782C5D800B96017 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CED5D7782782C64100B96017 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CED5D77F2782CE2700B96017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 		CEC0A607278064B2003503C1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CEC0A608278064EB003503C1 /* FileCache.swift */,
+				CEC0A608278064EB003503C1 /* FileCacheService.swift */,
 				CE5BD9DC2780813400E8AA0F /* FileManagerService.swift */,
 				CE159C212785A19500FAB879 /* AppStartService.swift */,
 			);
@@ -421,7 +421,7 @@
 				CE09F0DC277F405600306207 /* AppDelegate.swift in Sources */,
 				CE5BD9E02780815B00E8AA0F /* GeneralFunctions.swift in Sources */,
 				CE159C1E27859E3700FAB879 /* AllTasksBuilder.swift in Sources */,
-				CEC0A609278064EB003503C1 /* FileCache.swift in Sources */,
+				CEC0A609278064EB003503C1 /* FileCacheService.swift in Sources */,
 				CE4389DD2781981B00154DFB /* DeadLineView.swift in Sources */,
 				CE899EFD27875BEF00F1FA0A /* ToDoItemFileNames.swift in Sources */,
 				CE09F0DE277F405600306207 /* SceneDelegate.swift in Sources */,

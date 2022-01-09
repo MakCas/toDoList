@@ -10,9 +10,9 @@ import UIKit
 enum AllTasksBuilder {
     
     static func build() -> (UIViewController & AllTasksViewInput) {
-        let presenter = AllTasksPresenter()
         let router = AllTasksRouter()
-        let viewController = AllTasksController(presenter: presenter, router: router)
+        let presenter = AllTasksPresenter(router: router)
+        let viewController = AllTasksController(presenter: presenter)
         router.viewController = viewController
         presenter.viewInput = viewController
         return viewController

@@ -7,12 +7,16 @@
 
 import UIKit
 
+// MARK: - Protocol
+
 protocol AllTasksHeaderViewDelegate: AnyObject {
     
     func showDoneTasksButton(isSelected: Bool)
 }
 
-class AllTasksHeaderView: UITableViewHeaderFooterView {
+// MARK: - Class
+
+final class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Layout
     
@@ -68,7 +72,7 @@ class AllTasksHeaderView: UITableViewHeaderFooterView {
     // MARK: - UI
     
     private func configureUI() {
-        backgroundColor = .clear
+        backgroundView?.backgroundColor = .clear
         addSubviews()
         addConstraints()
     }
