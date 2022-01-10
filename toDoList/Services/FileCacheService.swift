@@ -37,7 +37,7 @@ final class FileCacheService {
 
     private func loadItemsFromFile() -> [ToDoItem] {
         guard let allItemsInOneData = FileManagerService.shared.loadFileDataAt(fileName: fileName) else {
-            fatalError("LoadItemsFromFile failed")
+            return []
         }
         do {
             let allItemsJSONS = try JSONSerialization.jsonObject(with: allItemsInOneData) as? [Any]
@@ -47,7 +47,7 @@ final class FileCacheService {
         } catch {
             fatalError(error.localizedDescription)
         }
-        fatalError("LoadItemsFromFile failed")
+        return []
     }
 
     private func saveItemsToFile(_ items: [ToDoItem]) {

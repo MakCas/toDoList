@@ -35,7 +35,7 @@ final class AllTasksPresenter {
     private var toDoItems: [ToDoItem] {
         return FileCacheService.shared.toDoItems
     }
-    private var showDoneTasksIsSelected = false
+    private var showDoneTasksIsSelected = true
 
     // MARK: - Init
     
