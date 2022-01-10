@@ -24,16 +24,17 @@ final class CheckControl: BigAreaControl {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                checkImageView.image = UIImage(named: "checkmark")
+                checkImageView.image = .checkMark
                 checkImageView.tintColor = .systemGreen
             } else {
-                checkImageView.image = UIImage(named: "circle")
+                checkImageView.image = .circle
                 checkImageView.tintColor = circleImageRed ? .systemRed : .systemGray3
             }
         }
     }
     
     // MARK: - Init
+
     init(circleImageRed: Bool = false, xInset: CGFloat = 0, yInset: CGFloat = 0) {
         self.circleImageRed = circleImageRed
         super.init(xInset: xInset, yInset: xInset)
@@ -50,7 +51,7 @@ final class CheckControl: BigAreaControl {
     
     private func configureUI() {
         addSubview(checkImageView)
-        checkImageView.image = UIImage(named: "circle")
+        checkImageView.image = .circle
         checkImageView.tintColor = .gray
         
         NSLayoutConstraint.activate([

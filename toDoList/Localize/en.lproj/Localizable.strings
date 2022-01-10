@@ -21,4 +21,7 @@
 
 // MARK: - AllTaskController
 
-"titleForAllTaskController" = "Мои дела";
+"titleForAllTaskController" = "My tasks";
+"allTasksHeaderViewDone" = "Done - ";
+"allTasksHeaderViewShow" = "Show";
+"allTasksHeaderViewHide" = "Hide";

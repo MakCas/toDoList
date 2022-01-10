@@ -22,8 +22,16 @@ final class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     enum Layout {
         
-        enum Example {
-            static let top: CGFloat = 1
+        enum ShowHideButton {
+            static let fontSize: CGFloat = 17
+            static let trailingInset: CGFloat = -15
+            static let textForNormalKey = "allTasksHeaderViewShow".localised()
+            static let textForSelectedKey = "allTasksHeaderViewHide".localised()
+        }
+        
+        enum DoneLabel {
+            static let leadingInset: CGFloat = 15
+            static let textKey = "allTasksHeaderViewDone".localised()
         }
     }
     
@@ -38,11 +46,11 @@ final class AllTasksHeaderView: UITableViewHeaderFooterView {
     
     private lazy var showHideButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Показать", for: .normal)
-        button.setTitle("Скрыть", for: .selected)
+        button.setTitle(Layout.ShowHideButton.textForNormalKey, for: .normal)
+        button.setTitle(Layout.ShowHideButton.textForSelectedKey, for: .selected)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
-        button.titleLabel?.font =  UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.titleLabel?.font =  UIFont.systemFont(ofSize: Layout.ShowHideButton.fontSize, weight: .semibold)
         button.addTarget(self, action: #selector(showHideButtonTapped(sender:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -64,11 +72,6 @@ final class AllTasksHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        subviews.filter { $0 != contentView && $0.frame.width == frame.width }.first?.removeFromSuperview()
-    }
-    
     // MARK: - UI
     
     private func configureUI() {
@@ -85,10 +88,10 @@ final class AllTasksHeaderView: UITableViewHeaderFooterView {
     private func addConstraints() {
         NSLayoutConstraint.activate([
             doneLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            doneLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            doneLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.DoneLabel.leadingInset),
             
             showHideButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            showHideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
+            showHideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Layout.ShowHideButton.trailingInset)
         ])
     }
     
@@ -99,7 +102,7 @@ final class AllTasksHeaderView: UITableViewHeaderFooterView {
     }
     
     func setNumberDoneTasks(_ number: Int) {
-        doneLabel.text = "Выполнено - \(number)"
+        doneLabel.text = Layout.DoneLabel.textKey + "\(number)"
     }
     
     func changeHideDoneTasksStatus(for isSelected: Bool) {

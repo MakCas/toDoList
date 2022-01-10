@@ -5,8 +5,6 @@
 //  Created by User on 07.01.2022.
 //
 
-import Foundation
-
 import UIKit
 
 final class AddTaskControl: UIControl {
@@ -34,9 +32,13 @@ final class AddTaskControl: UIControl {
 
     private func configureUI() {
         addSubview(imageView)
-        imageView.image = UIImage(systemName: "plus.circle.fill")
+        imageView.image = .plusCircleFill
         imageView.contentMode = .scaleAspectFill
 
+        addConstraints()
+    }
+
+    private func addConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),

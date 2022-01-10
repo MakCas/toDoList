@@ -13,17 +13,46 @@ protocol TaskCellDelegate: AnyObject {
 }
 
 enum TypeCell {
+
     case withTopMaskedCorners
     case withoutMaskedCorners
     case willAllMaskedCorners
     case withBottomMaskedCorners
 }
 
+// MARK: - Class
+
 final class TaskCell: UITableViewCell {
 
     // MARK: - Layout and Constants
 
     private enum Layout {
+
+        enum ContentView {
+            static let cornerRadius: CGFloat = 15
+        }
+
+        enum StackView {
+            static let spacing: CGFloat = 0
+            static let insets = UIEdgeInsets(top: 15, left: 10, bottom: -15, right: -10)
+        }
+
+        enum TaskLabel {
+            static let numberOfLines = 3
+        }
+
+        enum CheckControl {
+            static let leadingInset: CGFloat = 15
+            static let size: CGFloat = 30
+        }
+
+        enum ChevronImageView {
+            static let trailingInset: CGFloat = -15
+        }
+
+        enum LinveView {
+            static let height: CGFloat = 1
+        }
 
     }
 
@@ -39,15 +68,14 @@ final class TaskCell: UITableViewCell {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 0
+        stackView.spacing = Layout.StackView.spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
     private lazy var taskLabel: UILabel = {
         let label = UILabel()
-        label.text = "taskLabel"
-        label.numberOfLines = 3
+        label.numberOfLines = Layout.TaskLabel.numberOfLines
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,7 +88,7 @@ final class TaskCell: UITableViewCell {
 
     private lazy var chevronImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.image = .chevronRight
         imageView.tintColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -75,9 +103,9 @@ final class TaskCell: UITableViewCell {
 
     // MARK: - Properties
 
-    private var typeCell: TypeCell?
-    private var taskCellViewModel: TaskCellViewModel?
     weak var delegate: TaskCellDelegate?
+
+    private var taskCellViewModel: TaskCellViewModel?
 
     // MARK: - Init
 
@@ -91,26 +119,13 @@ final class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //    override func layoutSubviews() {
-    //        super.layoutSubviews()
-    //        let width = subviews[0].frame.width
-    //
-    //        for view in subviews where view != contentView {
-    //            if typeCell == .first || typeCell == .last  {
-    //            if view.frame.width == width {
-    //                view.removeFromSuperview()
-    //                }
-    //            }
-    //        }
-    //    }
-
     // MARK: - UI
 
     private func configureUI() {
         selectionStyle = .none
         backgroundColor = .clear
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 15
+        contentView.layer.cornerRadius = Layout.ContentView.cornerRadius
 
         addSubviews()
         addConstraints()
@@ -127,27 +142,27 @@ final class TaskCell: UITableViewCell {
 
     private func addConstraints() {
 
-        let heightConstraint = checkControl.heightAnchor.constraint(equalToConstant: 30)
+        let heightConstraint = checkControl.heightAnchor.constraint(equalToConstant: Layout.CheckControl.size)
         heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
-            checkControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            checkControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.CheckControl.leadingInset),
             heightConstraint,
-            checkControl.widthAnchor.constraint(equalToConstant: 30),
+            checkControl.widthAnchor.constraint(equalToConstant: Layout.CheckControl.size),
             checkControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             chevronImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            chevronImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Layout.ChevronImageView.trailingInset),
 
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            stackView.leadingAnchor.constraint(equalTo: checkControl.trailingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Layout.StackView.insets.top),
+            stackView.leadingAnchor.constraint(equalTo: checkControl.trailingAnchor, constant: Layout.StackView.insets.left),
+            stackView.trailingAnchor.constraint(equalTo: chevronImageView.trailingAnchor, constant: Layout.StackView.insets.right),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Layout.StackView.insets.bottom),
 
             lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: 1)
+            lineView.heightAnchor.constraint(equalToConstant: Layout.LinveView.height)
 
         ])
     }
@@ -164,9 +179,7 @@ final class TaskCell: UITableViewCell {
             checkControl.changeCircleImageColorToRed(false)
         }
         checkControl.isSelected = model.isDone
-        self.typeCell = typeCell
         setMaskedCornersAndSeparator(for: typeCell)
-
     }
 
     // MARK: - Private Functions
