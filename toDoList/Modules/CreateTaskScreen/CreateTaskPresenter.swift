@@ -10,58 +10,93 @@ import UIKit
 // MARK: - Protocols
 
 protocol CreteTaskViewInput: AnyObject {
+
     func showDatePicker(for date: Date)
     func hideDatePicker()
     func showDateInLabel(_ date: Date)
     func makeSaveButton(enable: Bool)
+    func configureUIWith(toDoItem: ToDoItemViewModel)
 }
 
 protocol CreteTaskViewOutput: AnyObject {
+
+    func viewDidLoad()
+    func cancelButtonTapped()
+    func saveButtonTapped()
     func textViewDidChange(with text: String)
     func importanceChosen(_ importance: ToDoItemImportance)
     func deadLineSwitchChanged(isOn: Bool)
     func datePickerTapped(for date: Date)
-    func saveButtonTapped()
+}
+
+protocol CreteTaskPresenterUpdateDelegate: AnyObject {
+
+    func updateViewModels()
 }
 
 // MARK: - Class
 
 final class CreteTaskPresenter {
-
+    
     // MARK: - Properties
-
+    
     weak var viewInput: (UIViewController & CreteTaskViewInput)?
-    private var toDoItem: ToDoItem?
+    weak var updateDelegate: CreteTaskPresenterUpdateDelegate?
+
+    private var router: CreateTaskRouterOutput
+    private var toDoItem: ToDoItem
     private var toDoItemViewModel = ToDoItemViewModel()
     
+    // MARK: - Init
+    
+    init(toDoItem: ToDoItem?, router: CreateTaskRouterOutput, updateDelegate: CreteTaskPresenterUpdateDelegate) {
+        self.toDoItem = toDoItem ?? ToDoItem(text: "", importance: .usual)
+        self.router = router
+        self.updateDelegate = updateDelegate
+    }
+    
     // MARK: - Private Functions
-
+    
     private func makeSaveButtonEnabledIfNeeded() {
-        guard
-            !toDoItemViewModel.text.isNilOrEmpty,
-            toDoItemViewModel.importance != nil
-        else {
-            viewInput?.makeSaveButton(enable: false)
-            return
-        }
-        viewInput?.makeSaveButton(enable: true)
+        viewInput?.makeSaveButton(enable: !toDoItemViewModel.text.isNilOrEmpty)
     }
 }
 
 // MARK: - ChatViewOutput
 
 extension CreteTaskPresenter: CreteTaskViewOutput {
+    
+    func viewDidLoad() {
+        toDoItemViewModel = ToDoItemViewModel(from: toDoItem)
+        makeSaveButtonEnabledIfNeeded()
+        viewInput?.configureUIWith(toDoItem: toDoItemViewModel)
+    }
+
+    func cancelButtonTapped() {
+        router.goBack()
+    }
+
+    func saveButtonTapped() {
+        guard let text = toDoItemViewModel.text else { return }
+        toDoItem.text = text
+        toDoItem.importance = toDoItemViewModel.importance
+        toDoItem.deadLine = toDoItemViewModel.deadLine
+
+        FileCacheService.shared.addOrChangeToDoItem(toDoItem)
+        updateDelegate?.updateViewModels()
+        router.goBack()
+    }
 
     func textViewDidChange(with text: String) {
         toDoItemViewModel.text = text
         makeSaveButtonEnabledIfNeeded()
     }
-
+    
     func importanceChosen(_ importance: ToDoItemImportance) {
         toDoItemViewModel.importance = importance
         makeSaveButtonEnabledIfNeeded()
     }
-
+    
     func deadLineSwitchChanged(isOn: Bool) {
         if isOn {
             let date = Date()
@@ -72,21 +107,9 @@ extension CreteTaskPresenter: CreteTaskViewOutput {
             viewInput?.hideDatePicker()
         }
     }
-
+    
     func datePickerTapped(for date: Date) {
         toDoItemViewModel.deadLine = date
         viewInput?.showDateInLabel(date)
-    }
-
-    func saveButtonTapped() {
-        guard
-            let text = toDoItemViewModel.text,
-            let importance = toDoItemViewModel.importance
-        else {
-            return
-        }
-        let toDoItem = ToDoItem(text: text, importance: importance, deadLine: toDoItemViewModel.deadLine)
-        printDebug(toDoItem)
-        return
     }
 }

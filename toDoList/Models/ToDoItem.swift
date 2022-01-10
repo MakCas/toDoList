@@ -14,6 +14,17 @@ enum ToDoItemImportance: String {
     case notImportant
     case usual
     case important
+
+    var index: Int {
+        switch self {
+        case .notImportant:
+            return 0
+        case .usual:
+            return 1
+        case .important:
+            return 2
+        }
+    }
 }
 
 struct ToDoItem {
@@ -21,9 +32,10 @@ struct ToDoItem {
     // MARK: - Properties
     
     let id: String
-    let text: String
-    let importance: ToDoItemImportance
-    let deadLine: Date?
+    var text: String
+    var importance: ToDoItemImportance
+    var deadLine: Date?
+    var isDone: Bool
     
     // MARK: - Init
     
@@ -31,12 +43,14 @@ struct ToDoItem {
         id: String = UUID().uuidString,
         text: String,
         importance: ToDoItemImportance,
-        deadLine: Date? = nil
+        deadLine: Date? = nil,
+        isDone: Bool = false
     ) {
         self.id = id
         self.text = text
         self.importance = importance
         self.deadLine = deadLine
+        self.isDone = isDone
     }
 }
 
@@ -47,7 +61,8 @@ extension ToDoItem {
     var json: Any {
         var toDoItemDictionary: [String: Any] = [
             "id": id as Any,
-            "text": text as Any
+            "text": text as Any,
+            "isDone": isDone as Any
         ]
         
         if importance != .usual {
@@ -57,19 +72,15 @@ extension ToDoItem {
         if let deadLine = deadLine?.timeIntervalSince1970 {
             toDoItemDictionary["deadLine"] = deadLine as Any
         }
-        
-        do {
-            return try JSONSerialization.data(withJSONObject: toDoItemDictionary)
-        } catch {
-            fatalError("Error during serialization")
-        }
+        return toDoItemDictionary
     }
     
     static func parse(json: Any) -> ToDoItem? {
         guard
             let toDoItemJson = json as? [String: Any],
             let id = toDoItemJson["id"] as? String,
-            let text = toDoItemJson["text"] as? String
+            let text = toDoItemJson["text"] as? String,
+            let isDone = toDoItemJson["isDone"] as? Bool
         else {
             return nil
         }
@@ -91,7 +102,8 @@ extension ToDoItem {
             id: id,
             text: text,
             importance: importanceForCreateItem ?? .usual,
-            deadLine: deadLineDate
+            deadLine: deadLineDate,
+            isDone: isDone
         )
     }
 }

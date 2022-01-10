@@ -28,11 +28,11 @@ final class CreateTaskController: UIViewController {
         enum ScrollView {
             static let insets = UIEdgeInsets(top: 20, left: 16, bottom: 0, right: -16)
         }
-
+        
         enum BigStackView {
             static let minimumLineSpacing: CGFloat = 15
         }
-
+        
         enum ImportanceView {
             static let height: CGFloat = 65
         }
@@ -57,7 +57,7 @@ final class CreateTaskController: UIViewController {
     }
     
     // MARK: - Subviews
-
+    
     private lazy var topStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -66,19 +66,20 @@ final class CreateTaskController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle(Layout.TopStackView.cancelButtonTextKey, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -192,35 +193,21 @@ final class CreateTaskController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addScrollViewGesture()
+        presenter.viewDidLoad()
         configureUI()
         addObservers()
     }
-
+    
     deinit {
         removeObservers()
     }
     
     // MARK: - UI
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
 
-    private func addScrollViewGesture() {
-        scrollView.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTapped))
-        scrollView.addGestureRecognizer(gesture)
-    }
-
-    @objc private func scrollViewTapped() {
-        view.endEditing(true)
-    }
-
-    @objc private func datePickerTapped(sender: UIDatePicker) {
-        presenter.datePickerTapped(for: sender.date)
-    }
-    
     private func configureUI() {
         view.backgroundColor = .backGroundColor
         
@@ -233,18 +220,18 @@ final class CreateTaskController: UIViewController {
         topStackView.addArrangedSubview(cancelButton)
         topStackView.addArrangedSubview(nameScreenLabel)
         topStackView.addArrangedSubview(saveButton)
-
+        
         view.addSubview(scrollView)
         scrollView.addSubview(bigStackView)
-
+        
         bigStackView.addArrangedSubview(taskTextView)
         bigStackView.addArrangedSubview(containerForSmallStackView)
-
+        
         containerForSmallStackView.addSubview(smallStackView)
         smallStackView.addArrangedSubview(importanceView)
         smallStackView.addArrangedSubview(deadLineView)
         smallStackView.addArrangedSubview(calendarDatePicker)
-
+        
         bigStackView.addArrangedSubview(deleteButton)
     }
     
@@ -254,12 +241,12 @@ final class CreateTaskController: UIViewController {
             topStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.TopStackView.insets.left),
             topStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.TopStackView.insets.right),
             topStackView.heightAnchor.constraint(equalToConstant: Layout.TopStackView.height),
-
+            
             scrollView.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: Layout.ScrollView.insets.top),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Layout.ScrollView.insets.left),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Layout.ScrollView.insets.right),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
+            
             bigStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             bigStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             bigStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -278,32 +265,42 @@ final class CreateTaskController: UIViewController {
             deleteButton.heightAnchor.constraint(equalToConstant: Layout.DeleteButton.height)
         ])
     }
-
+    
     // MARK: - Private Functions
+    
     @objc private func saveButtonTapped() {
         presenter.saveButtonTapped()
     }
-
+    
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardHeight = keyboardSize.cgRectValue.height
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
-
+    
     @objc private func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
     }
+
+    @objc private func cancelButtonTapped() {
+        presenter.cancelButtonTapped()
+    }
+
+    @objc private func datePickerTapped(sender: UIDatePicker) {
+        presenter.datePickerTapped(for: sender.date)
+    }
+
 }
 
 // MARK: - DeadLineViewDelegate
@@ -318,6 +315,20 @@ extension CreateTaskController: DeadLineViewDelegate {
 // MARK: - CreteTaskViewInput
 
 extension CreateTaskController: CreteTaskViewInput {
+
+    func configureUIWith(toDoItem: ToDoItemViewModel) {
+        importanceView.setSegmentControl(for: toDoItem.importance)
+        
+        if let text = toDoItem.text {
+            taskTextView.change(text: text)
+        }
+        
+        guard let date = toDoItem.deadLine else { return }
+        calendarDatePicker.isHidden = false
+        deadLineView.makeSwitcherOn()
+        deadLineView.makeLayoutForSwitcherIsON(for: date)
+        calendarDatePicker.setDate(date, animated: false)
+    }
     
     func makeSaveButton(enable: Bool) {
         saveButton.isEnabled = enable

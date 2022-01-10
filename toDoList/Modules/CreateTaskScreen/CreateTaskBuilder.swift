@@ -9,11 +9,13 @@ import UIKit
 
 enum CreateTaskBuilder {
     
-    static func build() -> (UIViewController & CreteTaskViewInput) {
+    static func build(with toDoItem: ToDoItem?, presenterDelegate: CreteTaskPresenterUpdateDelegate) -> (UIViewController & CreteTaskViewInput) {
         
-        let presenter = CreteTaskPresenter()
+        let router = CreateTaskRouter()
+        let presenter = CreteTaskPresenter(toDoItem: toDoItem, router: router, updateDelegate: presenterDelegate)
         let viewController = CreateTaskController(presenter: presenter)
         presenter.viewInput = viewController
+        router.viewController = viewController
         return viewController
     }
 }

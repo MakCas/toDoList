@@ -8,6 +8,7 @@
 import UIKit
 
 protocol DeadLineViewDelegate: AnyObject {
+
     func deadLineSwitchChanged(isOn: Bool)
 }
 
@@ -134,26 +135,29 @@ final class DeadLineView: UIView {
     
     @objc private func switcherChanged(_ sender: UISwitch) {
         delegate?.deadLineSwitchChanged(isOn: sender.isOn)
-        
     }
     
     // MARK: - Public Functions
     
     func dateChosen(_ date: Date) {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.shared
         formatter.dateFormat = "d MMMM yyyy"
         let dateString = formatter.string(from: date)
         belowLabel.text = dateString
     }
     
     func makeLayoutForSwitcherIsON(for date: Date) {
-        lineView.isHidden = true
+        lineView.isHidden = false
         belowLabel.isHidden = false
         dateChosen(date)
     }
+
+    func makeSwitcherOn() {
+        switcher.isOn = true
+    }
     
     func makeLayoutForSwitcherIsOff() {
-        lineView.isHidden = false
+        lineView.isHidden = true
         belowLabel.isHidden = true
         belowLabel.text = nil
     }

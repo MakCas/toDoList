@@ -8,9 +8,10 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    private lazy var appStartService: AppStartProtocol = AppStartService(window: self.window)
+    
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -18,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: windowScene)
-        window!.rootViewController = CreateTaskBuilder.build()
-        window!.makeKeyAndVisible()
+        appStartService.start()
     }
 }

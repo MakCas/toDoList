@@ -7,14 +7,13 @@ disabled_rules:
 - nesting
 
 function_parameter_count:
-warning: 10
-error: 15
+ warning: 10
+ error: 15
 
 line_length: 160
 
 file_length:
-warning: 500
+ warning: 500
 
 type_body_length:
-warning: 400
-error: 450
+ warning: 400

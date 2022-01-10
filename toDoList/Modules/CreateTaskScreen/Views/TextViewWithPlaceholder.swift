@@ -82,6 +82,13 @@ final class TextViewWithPlaceholder: UITextView {
         textColor = .textViewPlaceHolderColor
         text = Layout.TextView.placeHolderKey
     }
+
+    // MARK: - Public Functions
+
+    func change(text: String) {
+        self.text = text
+        setTextViewForUserDescription()
+    }
 }
 
 // MARK: - UITextViewDelegate

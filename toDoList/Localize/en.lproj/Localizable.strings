@@ -18,3 +18,10 @@
 "exclamationMark" = "‼";
 "doTill" = "Do till";
 "delete" = "Delete";
+
+// MARK: - AllTaskController
+
+"titleForAllTaskController" = "My tasks";
+"allTasksHeaderViewDone" = "Done - ";
+"allTasksHeaderViewShow" = "Show";
+"allTasksHeaderViewHide" = "Hide";

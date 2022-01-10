@@ -1,9 +1,9 @@
 /* 
  Localizable.strings
  toDoList
-
+ 
  Created by User on 03.01.2022.
-
+ 
  */
 
 // MARK: - CreateTaskController
@@ -18,3 +18,10 @@
 "exclamationMark" = "‼";
 "doTill" = "Сделать до";
 "delete" = "Удалить";
+
+// MARK: - AllTaskController
+
+"titleForAllTaskController" = "Мои дела";
+"allTasksHeaderViewDone" = "Выполнено - ";
+"allTasksHeaderViewShow" = "Показать";
+"allTasksHeaderViewHide" = "Скрыть";
